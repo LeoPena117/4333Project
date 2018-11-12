@@ -1,0 +1,38 @@
+	{% extends "layout.html" %}
+		
+      
+{% block content %}
+
+
+<div class="container">
+
+	<div>
+		<SenatorName id="{{ Senator.Id }}"><h2>{{ Senator.Name }}</h2></RecipeName>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8">
+
+			<p> {{ Senator.Bio }} </p>
+
+			<p><label>Party:</label> {{ Senator.Party }}</p>
+			<p><label>State:</label> {{ Party.State }}</p>
+
+			<h3>Info</h3>
+
+			<ul>
+				<li>DOB: {{ Bio.Born }}</li>
+				<li>Age: {{ Bio.Age }}</li>
+				<li>Spouse: {{ Bio.Spouse }}</li>
+				<li>Education: {{ Bio.Education }}</li>
+
+			</ul>
+		</div>
+
+		<div class="col-md-2">
+			<img class="thumb" src= "{{ Senator.ImgURL }}" width="300px">
+		</div>
+	</div>
+</div>
+
+{% endblock %}

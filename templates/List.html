@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+
+	{% block title %}Senators{% endblock %}
+      {% block content %}
+
+<div class="container">
+
+<form method="GET" action="">
+
+<table class="table">
+
+<tbody><tr>
+	<th></th>
+	<th><a href="{{base_url()}}/sort/Name">Name</a></th>
+	<th><a href="{{base_url()}}/sort/Party">Party</a></th>
+	<th>State</a></th>
+</tr>
+
+	{% for Senator in Senators %}
+<tr>
+	<td rowspan="2">
+		<img class="thumb" src="{{ Senator.ImgURL }}" width = "150px">
+	</td>
+	<td><a type="text" name="Id" href="{{base_url()}}/{{ Senator.Id }}">{{ Senator.name }}</a></td>
+	<td> {{ Senator.Party }} </td>
+	<td> {% if ( Senator.Party == "D" ) %}
+			{% for Democrat in Dem %}
+				{% if (Senator.Name == Democrat.Name) %}
+					{{ Democrat.State}}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
+		{% if ( Senator.Party == "R" ) %}
+			{% for Republican in Rep %}
+				{% if (Senator.Name == Republican.Name) %}
+					{{ Republican.State}}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
+		{% if ( Senator.Party == "I" ) %}
+			{% for Independent in Ind %}
+				{% if (Senator.Name == Independent.Name) %}
+					{{ Independent.State}}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		</td>
+</tr>
+<tr>
+	<td colspan="4"> {{ Senator.Bio }} </td></tr>
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+
+</form>
+</div>
+
+{% endblock %}
