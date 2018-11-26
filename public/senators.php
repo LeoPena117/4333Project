@@ -2,6 +2,9 @@
 require '../vendor/autoload.php';
 require '../generated-conf/config.php';
 
+session_start();
+
+
 $settings = ['displayErrorDetails' => true];
 
 $app = new \Slim\App(['settings' => $settings]);
@@ -19,10 +22,39 @@ $container['view'] = function($container) {
     return $view;
 };
 
+$app->get('/', function ($request, $response, $args) {
+
+    $this->view->render($response, 'login.html');
+    return $response;
+})->setName('home');
+
+$app->post('/handlers/login', function ($request, $response, $args) {
+    $User = UsersQuery::create()->findOneByUsername($request->getParam("username"));
+    if($User == null){
+        return "User does not exist";
+    }
+    else{
+        $PW = $request->getParam("pw");
+        $isUser = Users::login($User,$PW);
+        if($isUser){
+            $_SESSION['loggedin'] = true;
+            $_SESSION['username'] = $User->getUsername();
+            $_SESSION['id'] = $User->getId();
+            $data = array('username'=>$User->getUsername(), 'hash'=>$User->getPasswordHash(),'isuser'=>true);
+            $this->view->render($response, 'List.html');
+            return $response->withJson($data);
+        }
+        else{
+            $data = array('username'=>"Wrong", 'hash'=>"Wrong",'isuser'=>false);
+            $this->view->render($response, 'List.html');
+            return $response->withJson($data);
+        }
+    }
+});
 
 $app->get('/{Id}', function($request, $response, $args) {
 
-    // access named argument from path
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     $Senator = AllsenatorsQuery::create()->findPk($args['Id']);
     $Rep = RepublicansQuery::create()->findOneByName($Senator->getName());
     $Ind = IndependentsQuery::create()->findOneByName($Senator->getName());
@@ -35,6 +67,7 @@ $app->get('/{Id}', function($request, $response, $args) {
         $Party=$Rep;
     if(!empty($Dem))
         $Party=$Dem;
+    print_r($_SESSION);
     // template rendering, passing data (name variable)
     return $this->view->render($response, "Single.html", [
         "Senator" => $Senator,
@@ -42,25 +75,12 @@ $app->get('/{Id}', function($request, $response, $args) {
         "Bio"=> $Bio
     ]);
 
+    } else {
+        $this->view->render($response, 'login.html');
+        return $response;
+    }
+
 });
-
-$app->get('/', function ($request, $response, $args) {
-    $Senators = AllsenatorsQuery::create()->groupByName();
-
-    $Rep = RepublicansQuery::create()->groupByName();
-    $Ind = IndependentsQuery::create()->groupByName();
-    $Dem = DemocratsQuery::create()->groupByName();
-    
-
-    $this->view->render($response, 'List.html', [
-        "Senators" => $Senators,
-        "Dem"=> $Dem,
-        "Rep"=> $Rep,
-        "Ind"=> $Ind
-    ]);
-
-    return $response;
-})->setName('home');
 
 
 $app->get('/sort/Name', function($request, $response, $args) {
@@ -117,53 +137,50 @@ $app->get('/sort/State', function($request, $response, $args) {
     return $response;
 })->setName('home');
 
+$app->get('/handlers/senators',function($request,$response,$args){
+    $Senators = AllsenatorsQuery::create()->groupByName();
 
+    $Rep = RepublicansQuery::create()->groupByName();
+    $Ind = IndependentsQuery::create()->groupByName();
+    $Dem = DemocratsQuery::create()->groupByName();
+    
 
-$app->get('/handlers/shuffle_steps/{RID}/{SID1}/{SID2}',
-    function($request,$response,$args){
-        $Recipe = StepsQuery::create()->findByRecipeId($args['RID']);
-        if($args['SID2']>$args['SID1']){
-            for ($i=count($Recipe)-1;$i>=0;$i--){
-                if($Recipe[$i]->getStepNumber()==$args['SID2']){
-                    $original = $Recipe[$i]->getDescription();
-                    for(;$i>=0;$i--){
-                        if($Recipe[$i]->getStepNumber()==$args['SID1']){
-                            $Recipe[$i]->setDescription($original);
-                            break;
-                        }
-                        $hold=$Recipe[$i]->getDescription();
-                        $Recipe[$i]->setDescription($Recipe[$i-1]->getDescription());
-                        
-                    }
-                }
-            }
-        }
-        else if($args['SID1']>$args['SID2']){
-              for ($i=0;$i<=count($Recipe)-1;$i++){
-                if($Recipe[$i]->getStepNumber()==$args['SID2']){
-                    $original = $Recipe[$i]->getDescription();
-                    for(;$i<=count($Recipe)-1;$i++){
-                        if($Recipe[$i]->getStepNumber()==$args['SID1']){
-                            $Recipe[$i]->setDescription($original);
-                            break;
-                        }
-                        $hold=$Recipe[$i]->getDescription();
-                        $Recipe[$i]->setDescription($Recipe[$i+1]->getDescription());
-                    }
-                }
-            }
-        }
-        $Recipe->save();
-    });
+    $this->view->render($response, 'List.html', [
+        "Senators" => $Senators,
+        "Dem"=> $Dem,
+        "Rep"=> $Rep,
+        "Ind"=> $Ind
+    ]);
+});
 
-$app->get('/handlers/add_step/{RID}/{SID}/{Step}',
-    function($request,$response,$args){
-        $Step = new Steps();
-        $Step->setStepNumber($args['SID']);
-        $Step->setDescription($args['Step']);
-        $Step->setRecipeId($args['RID']);
-        $Step->save();
-    });
+$app->post('/handlers/signupconfirm', function ($request, $response, $args) {
+    $Usr = new Users();
+    $hash = password_hash($request->getParam("pw"),PASSWORD_DEFAULT);
+    echo "Helo";
+    $Usr->setUsername($request->getParam("username"));
+    $Usr->setPasswordHash($hash);
+    $Usr->setState($request->getParam("state"));
+    $Usr->save();
+});
+
+$app->get('/handlers/signup', function ($request, $response, $args) {
+    $this->view->render($response, 'signup.html');
+    return $response;
+});
+
+$app->get('/handlers/Account', function ($request, $response, $args) {
+    $data=$_SESSION;
+
+    $this->view->render($response, 'Account.html',["data"=>$data]);
+    return $response;
+});
+
+$app->get('/handlers/logout', function ($request, $response, $args) {
+    session_unset(); 
+    session_destroy();
+    $this->view->render($response, 'login.html');
+    return $response;
+});
 
 
 $app->run();

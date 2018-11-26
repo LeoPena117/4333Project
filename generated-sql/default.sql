@@ -111,5 +111,20 @@ CREATE TABLE `upforreelection`
     PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB;
 
+-- ---------------------------------------------------------------------
+-- users
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users`
+(
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(50) NOT NULL,
+    `password_hash` VARCHAR(100) NOT NULL,
+    `state` VARCHAR(2) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
