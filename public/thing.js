@@ -2,7 +2,6 @@ $(".loggedin").hide();
 $("#wrongPW").hide();
 $("#PWMM").hide();
 
-
 $("#loginbtn").on("click",function(){
 
 	username = $("#UName").val();
@@ -65,6 +64,79 @@ $("#signupconfirm").on("click",function(){
     	return false;
  })
 
+$("#changeState").on('click',function(){
+	$("#states").show()
+})
+
+$("#changeUName").on('click',function(){
+	$("#tBox").show()
+})
+
+$("#State").change(function(){
+
+	user = $("uid").text();
+	state = $("#State").val();
+	$.ajax({
+		method : "POST",
+		url : baseurl 
+			+ "/handlers/changeState",
+			dataType : "text",
+		data:{
+        	user: user,
+        	state: state
+        }}).done(function(data){
+        	if(data!=null){
+        	data=JSON.parse(data)
+			$("state").text(data)
+			$("#states").hide()
+			}
+		})
+})
+
+$("#tBox").on('blur', function() {
+
+	user = $("uid").text();
+	username = $("#tBox").val();
+	$.ajax({
+		method : "POST",
+		url : baseurl 
+			+ "/handlers/changeUName",
+			dataType : "text",
+		data:{
+        	user: user,
+        	username: username
+        }}).done(function(data){
+			if(data!=null){
+        	data=JSON.parse(data)
+			$("username").text(data)
+			$("#tBox").hide()
+			}
+
+        })
+
+})
+
+$("#changePW").on('click',function(){
+	$("#pBox").show()
+$("#pBox").on('blur', function() {
+
+	user = $("uid").text();
+	PW = $("#pBox").val();
+	$.ajax({
+		method : "POST",
+		url : baseurl 
+			+ "/handlers/changePW",
+			dataType : "text",
+		data:{
+        	user: user,
+        	PW: PW
+        }}).done(function(data){
+        	alert("Password successfully changed!")
+			$("#pBox").hide()
+
+        })
+	})
+})
 
 
 $('em').on('click',function(){
