@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+
+	{% block title %}All Users{% endblock %}
+      {% block content %}
+
+<div class="container">
+
+<form method="GET" action="">
+
+<table class="table">
+<tbody><tr>
+	<th>UserName</th>
+	<th></th>
+	<th>State</th>
+	<th>ID</th>
+</tr>
+	{% for User in Users %}
+<tr>
+
+	<td>{{ User.Username }}</td>
+	<td><button id="deleteUser" type="submit" class="btn btn-primary">Delete User</button></td>
+	<td> {{ User.state }} </td>
+	<td><ID>{{User.ID}}</ID></td>
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+
+</form>
+</div>
+
+{% endblock %}

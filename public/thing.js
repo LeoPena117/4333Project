@@ -133,8 +133,21 @@ $("#pBox").on('blur', function() {
         }}).done(function(data){
         	alert("Password successfully changed!")
 			$("#pBox").hide()
-
         })
+	})
+})
+
+$("#getStarted").on('click',function(){
+$.ajax({
+		url : baseurl 
+			+ "/handlers/login",
+			dataType : "text"
+		}).done(function(data){
+			console.log(data)
+		if(data)
+		window.location.replace(baseurl+"/handlers/login")
+		else
+		window.location.replace(baseurl+"/handlers/senators")
 	})
 })
 

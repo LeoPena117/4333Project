@@ -2,10 +2,10 @@
 
 namespace Base;
 
-use \UsersQuery as ChildUsersQuery;
+use \CommentsQuery as ChildCommentsQuery;
 use \Exception;
 use \PDO;
-use Map\UsersTableMap;
+use Map\CommentsTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
@@ -19,18 +19,18 @@ use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 
 /**
- * Base class that represents a row from the 'users' table.
+ * Base class that represents a row from the 'comments' table.
  *
  *
  *
  * @package    propel.generator..Base
  */
-abstract class Users implements ActiveRecordInterface
+abstract class Comments implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Map\\UsersTableMap';
+    const TABLE_MAP = '\\Map\\CommentsTableMap';
 
 
     /**
@@ -67,32 +67,25 @@ abstract class Users implements ActiveRecordInterface
     protected $id;
 
     /**
-     * The value for the username field.
+     * The value for the comment field.
      *
      * @var        string
      */
-    protected $username;
+    protected $comment;
 
     /**
-     * The value for the password_hash field.
+     * The value for the user field.
      *
      * @var        string
      */
-    protected $password_hash;
+    protected $user;
 
     /**
-     * The value for the state field.
+     * The value for the senator field.
      *
-     * @var        string
+     * @var        int
      */
-    protected $state;
-
-    /**
-     * The value for the admin field.
-     *
-     * @var        string
-     */
-    protected $admin;
+    protected $senator;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -103,7 +96,7 @@ abstract class Users implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * Initializes internal state of Base\Users object.
+     * Initializes internal state of Base\Comments object.
      */
     public function __construct()
     {
@@ -198,9 +191,9 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>Users</code> instance.  If
-     * <code>obj</code> is an instance of <code>Users</code>, delegates to
-     * <code>equals(Users)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>Comments</code> instance.  If
+     * <code>obj</code> is an instance of <code>Comments</code>, delegates to
+     * <code>equals(Comments)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -266,7 +259,7 @@ abstract class Users implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|Users The current object, for fluid interface
+     * @return $this|Comments The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -338,50 +331,40 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * Get the [username] column value.
+     * Get the [comment] column value.
      *
      * @return string
      */
-    public function getUsername()
+    public function getComment()
     {
-        return $this->username;
+        return $this->comment;
     }
 
     /**
-     * Get the [password_hash] column value.
+     * Get the [user] column value.
      *
      * @return string
      */
-    public function getPasswordHash()
+    public function getUser()
     {
-        return $this->password_hash;
+        return $this->user;
     }
 
     /**
-     * Get the [state] column value.
+     * Get the [senator] column value.
      *
-     * @return string
+     * @return int
      */
-    public function getState()
+    public function getSenator()
     {
-        return $this->state;
-    }
-
-    /**
-     * Get the [admin] column value.
-     *
-     * @return string
-     */
-    public function getAdmin()
-    {
-        return $this->admin;
+        return $this->senator;
     }
 
     /**
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return $this|\Users The current object (for fluent API support)
+     * @return $this|\Comments The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -391,91 +374,71 @@ abstract class Users implements ActiveRecordInterface
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[UsersTableMap::COL_ID] = true;
+            $this->modifiedColumns[CommentsTableMap::COL_ID] = true;
         }
 
         return $this;
     } // setId()
 
     /**
-     * Set the value of [username] column.
+     * Set the value of [comment] column.
      *
      * @param string $v new value
-     * @return $this|\Users The current object (for fluent API support)
+     * @return $this|\Comments The current object (for fluent API support)
      */
-    public function setUsername($v)
+    public function setComment($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->username !== $v) {
-            $this->username = $v;
-            $this->modifiedColumns[UsersTableMap::COL_USERNAME] = true;
+        if ($this->comment !== $v) {
+            $this->comment = $v;
+            $this->modifiedColumns[CommentsTableMap::COL_COMMENT] = true;
         }
 
         return $this;
-    } // setUsername()
+    } // setComment()
 
     /**
-     * Set the value of [password_hash] column.
+     * Set the value of [user] column.
      *
      * @param string $v new value
-     * @return $this|\Users The current object (for fluent API support)
+     * @return $this|\Comments The current object (for fluent API support)
      */
-    public function setPasswordHash($v)
+    public function setUser($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->password_hash !== $v) {
-            $this->password_hash = $v;
-            $this->modifiedColumns[UsersTableMap::COL_PASSWORD_HASH] = true;
+        if ($this->user !== $v) {
+            $this->user = $v;
+            $this->modifiedColumns[CommentsTableMap::COL_USER] = true;
         }
 
         return $this;
-    } // setPasswordHash()
+    } // setUser()
 
     /**
-     * Set the value of [state] column.
+     * Set the value of [senator] column.
      *
-     * @param string $v new value
-     * @return $this|\Users The current object (for fluent API support)
+     * @param int $v new value
+     * @return $this|\Comments The current object (for fluent API support)
      */
-    public function setState($v)
+    public function setSenator($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            $v = (int) $v;
         }
 
-        if ($this->state !== $v) {
-            $this->state = $v;
-            $this->modifiedColumns[UsersTableMap::COL_STATE] = true;
+        if ($this->senator !== $v) {
+            $this->senator = $v;
+            $this->modifiedColumns[CommentsTableMap::COL_SENATOR] = true;
         }
 
         return $this;
-    } // setState()
-
-    /**
-     * Set the value of [admin] column.
-     *
-     * @param string $v new value
-     * @return $this|\Users The current object (for fluent API support)
-     */
-    public function setAdmin($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->admin !== $v) {
-            $this->admin = $v;
-            $this->modifiedColumns[UsersTableMap::COL_ADMIN] = true;
-        }
-
-        return $this;
-    } // setAdmin()
+    } // setSenator()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -513,20 +476,17 @@ abstract class Users implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : UsersTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : CommentsTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : UsersTableMap::translateFieldName('Username', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->username = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : CommentsTableMap::translateFieldName('Comment', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->comment = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : UsersTableMap::translateFieldName('PasswordHash', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->password_hash = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : CommentsTableMap::translateFieldName('User', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->user = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UsersTableMap::translateFieldName('State', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->state = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : UsersTableMap::translateFieldName('Admin', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->admin = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : CommentsTableMap::translateFieldName('Senator', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->senator = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -535,10 +495,10 @@ abstract class Users implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 5; // 5 = UsersTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 4; // 4 = CommentsTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Users'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Comments'), 0, $e);
         }
     }
 
@@ -580,13 +540,13 @@ abstract class Users implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(UsersTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(CommentsTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildUsersQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildCommentsQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -605,8 +565,8 @@ abstract class Users implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see Users::setDeleted()
-     * @see Users::isDeleted()
+     * @see Comments::setDeleted()
+     * @see Comments::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -615,11 +575,11 @@ abstract class Users implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(UsersTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(CommentsTableMap::DATABASE_NAME);
         }
 
         $con->transaction(function () use ($con) {
-            $deleteQuery = ChildUsersQuery::create()
+            $deleteQuery = ChildCommentsQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -654,7 +614,7 @@ abstract class Users implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(UsersTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(CommentsTableMap::DATABASE_NAME);
         }
 
         return $con->transaction(function () use ($con) {
@@ -673,7 +633,7 @@ abstract class Users implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                UsersTableMap::addInstanceToPool($this);
+                CommentsTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -730,30 +690,27 @@ abstract class Users implements ActiveRecordInterface
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[UsersTableMap::COL_ID] = true;
+        $this->modifiedColumns[CommentsTableMap::COL_ID] = true;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . UsersTableMap::COL_ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . CommentsTableMap::COL_ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(UsersTableMap::COL_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'id';
+        if ($this->isColumnModified(CommentsTableMap::COL_ID)) {
+            $modifiedColumns[':p' . $index++]  = 'ID';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_USERNAME)) {
-            $modifiedColumns[':p' . $index++]  = 'username';
+        if ($this->isColumnModified(CommentsTableMap::COL_COMMENT)) {
+            $modifiedColumns[':p' . $index++]  = 'Comment';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_PASSWORD_HASH)) {
-            $modifiedColumns[':p' . $index++]  = 'password_hash';
+        if ($this->isColumnModified(CommentsTableMap::COL_USER)) {
+            $modifiedColumns[':p' . $index++]  = 'User';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_STATE)) {
-            $modifiedColumns[':p' . $index++]  = 'state';
-        }
-        if ($this->isColumnModified(UsersTableMap::COL_ADMIN)) {
-            $modifiedColumns[':p' . $index++]  = 'Admin';
+        if ($this->isColumnModified(CommentsTableMap::COL_SENATOR)) {
+            $modifiedColumns[':p' . $index++]  = 'Senator';
         }
 
         $sql = sprintf(
-            'INSERT INTO users (%s) VALUES (%s)',
+            'INSERT INTO comments (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -762,20 +719,17 @@ abstract class Users implements ActiveRecordInterface
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case 'id':
+                    case 'ID':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
-                    case 'username':
-                        $stmt->bindValue($identifier, $this->username, PDO::PARAM_STR);
+                    case 'Comment':
+                        $stmt->bindValue($identifier, $this->comment, PDO::PARAM_STR);
                         break;
-                    case 'password_hash':
-                        $stmt->bindValue($identifier, $this->password_hash, PDO::PARAM_STR);
+                    case 'User':
+                        $stmt->bindValue($identifier, $this->user, PDO::PARAM_STR);
                         break;
-                    case 'state':
-                        $stmt->bindValue($identifier, $this->state, PDO::PARAM_STR);
-                        break;
-                    case 'Admin':
-                        $stmt->bindValue($identifier, $this->admin, PDO::PARAM_STR);
+                    case 'Senator':
+                        $stmt->bindValue($identifier, $this->senator, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -823,7 +777,7 @@ abstract class Users implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = UsersTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = CommentsTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -843,16 +797,13 @@ abstract class Users implements ActiveRecordInterface
                 return $this->getId();
                 break;
             case 1:
-                return $this->getUsername();
+                return $this->getComment();
                 break;
             case 2:
-                return $this->getPasswordHash();
+                return $this->getUser();
                 break;
             case 3:
-                return $this->getState();
-                break;
-            case 4:
-                return $this->getAdmin();
+                return $this->getSenator();
                 break;
             default:
                 return null;
@@ -877,17 +828,16 @@ abstract class Users implements ActiveRecordInterface
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
     {
 
-        if (isset($alreadyDumpedObjects['Users'][$this->hashCode()])) {
+        if (isset($alreadyDumpedObjects['Comments'][$this->hashCode()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Users'][$this->hashCode()] = true;
-        $keys = UsersTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['Comments'][$this->hashCode()] = true;
+        $keys = CommentsTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
-            $keys[1] => $this->getUsername(),
-            $keys[2] => $this->getPasswordHash(),
-            $keys[3] => $this->getState(),
-            $keys[4] => $this->getAdmin(),
+            $keys[1] => $this->getComment(),
+            $keys[2] => $this->getUser(),
+            $keys[3] => $this->getSenator(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -907,11 +857,11 @@ abstract class Users implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Users
+     * @return $this|\Comments
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = UsersTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = CommentsTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -922,7 +872,7 @@ abstract class Users implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Users
+     * @return $this|\Comments
      */
     public function setByPosition($pos, $value)
     {
@@ -931,16 +881,13 @@ abstract class Users implements ActiveRecordInterface
                 $this->setId($value);
                 break;
             case 1:
-                $this->setUsername($value);
+                $this->setComment($value);
                 break;
             case 2:
-                $this->setPasswordHash($value);
+                $this->setUser($value);
                 break;
             case 3:
-                $this->setState($value);
-                break;
-            case 4:
-                $this->setAdmin($value);
+                $this->setSenator($value);
                 break;
         } // switch()
 
@@ -966,22 +913,19 @@ abstract class Users implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = UsersTableMap::getFieldNames($keyType);
+        $keys = CommentsTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
             $this->setId($arr[$keys[0]]);
         }
         if (array_key_exists($keys[1], $arr)) {
-            $this->setUsername($arr[$keys[1]]);
+            $this->setComment($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setPasswordHash($arr[$keys[2]]);
+            $this->setUser($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setState($arr[$keys[3]]);
-        }
-        if (array_key_exists($keys[4], $arr)) {
-            $this->setAdmin($arr[$keys[4]]);
+            $this->setSenator($arr[$keys[3]]);
         }
     }
 
@@ -1002,7 +946,7 @@ abstract class Users implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Users The current object, for fluid interface
+     * @return $this|\Comments The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1022,22 +966,19 @@ abstract class Users implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(UsersTableMap::DATABASE_NAME);
+        $criteria = new Criteria(CommentsTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(UsersTableMap::COL_ID)) {
-            $criteria->add(UsersTableMap::COL_ID, $this->id);
+        if ($this->isColumnModified(CommentsTableMap::COL_ID)) {
+            $criteria->add(CommentsTableMap::COL_ID, $this->id);
         }
-        if ($this->isColumnModified(UsersTableMap::COL_USERNAME)) {
-            $criteria->add(UsersTableMap::COL_USERNAME, $this->username);
+        if ($this->isColumnModified(CommentsTableMap::COL_COMMENT)) {
+            $criteria->add(CommentsTableMap::COL_COMMENT, $this->comment);
         }
-        if ($this->isColumnModified(UsersTableMap::COL_PASSWORD_HASH)) {
-            $criteria->add(UsersTableMap::COL_PASSWORD_HASH, $this->password_hash);
+        if ($this->isColumnModified(CommentsTableMap::COL_USER)) {
+            $criteria->add(CommentsTableMap::COL_USER, $this->user);
         }
-        if ($this->isColumnModified(UsersTableMap::COL_STATE)) {
-            $criteria->add(UsersTableMap::COL_STATE, $this->state);
-        }
-        if ($this->isColumnModified(UsersTableMap::COL_ADMIN)) {
-            $criteria->add(UsersTableMap::COL_ADMIN, $this->admin);
+        if ($this->isColumnModified(CommentsTableMap::COL_SENATOR)) {
+            $criteria->add(CommentsTableMap::COL_SENATOR, $this->senator);
         }
 
         return $criteria;
@@ -1055,8 +996,8 @@ abstract class Users implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = ChildUsersQuery::create();
-        $criteria->add(UsersTableMap::COL_ID, $this->id);
+        $criteria = ChildCommentsQuery::create();
+        $criteria->add(CommentsTableMap::COL_ID, $this->id);
 
         return $criteria;
     }
@@ -1118,17 +1059,16 @@ abstract class Users implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Users (or compatible) type.
+     * @param      object $copyObj An object of \Comments (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setUsername($this->getUsername());
-        $copyObj->setPasswordHash($this->getPasswordHash());
-        $copyObj->setState($this->getState());
-        $copyObj->setAdmin($this->getAdmin());
+        $copyObj->setComment($this->getComment());
+        $copyObj->setUser($this->getUser());
+        $copyObj->setSenator($this->getSenator());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1144,7 +1084,7 @@ abstract class Users implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Users Clone of current object.
+     * @return \Comments Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1165,10 +1105,9 @@ abstract class Users implements ActiveRecordInterface
     public function clear()
     {
         $this->id = null;
-        $this->username = null;
-        $this->password_hash = null;
-        $this->state = null;
-        $this->admin = null;
+        $this->comment = null;
+        $this->user = null;
+        $this->senator = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -1198,7 +1137,7 @@ abstract class Users implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(UsersTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(CommentsTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**

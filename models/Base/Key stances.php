@@ -2,10 +2,11 @@
 
 namespace Base;
 
-use \UsersQuery as ChildUsersQuery;
+use \Key stances as ChildKey stances;
+use \Key stancesQuery as ChildKey stancesQuery;
 use \Exception;
 use \PDO;
-use Map\UsersTableMap;
+use Map\Key stancesTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
@@ -19,18 +20,18 @@ use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 
 /**
- * Base class that represents a row from the 'users' table.
+ * Base class that represents a row from the 'key stances' table.
  *
  *
  *
  * @package    propel.generator..Base
  */
-abstract class Users implements ActiveRecordInterface
+abstract class Key stances implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Map\\UsersTableMap';
+    const TABLE_MAP = '\\Map\\Key stancesTableMap';
 
 
     /**
@@ -67,32 +68,46 @@ abstract class Users implements ActiveRecordInterface
     protected $id;
 
     /**
-     * The value for the username field.
+     * The value for the healthcare field.
      *
      * @var        string
      */
-    protected $username;
+    protected $healthcare;
 
     /**
-     * The value for the password_hash field.
+     * The value for the guncontrol field.
      *
      * @var        string
      */
-    protected $password_hash;
+    protected $guncontrol;
 
     /**
-     * The value for the state field.
+     * The value for the womensrights field.
      *
      * @var        string
      */
-    protected $state;
+    protected $womensrights;
 
     /**
-     * The value for the admin field.
+     * The value for the militaryspending field.
      *
      * @var        string
      */
-    protected $admin;
+    protected $militaryspending;
+
+    /**
+     * The value for the foreignpolicy field.
+     *
+     * @var        string
+     */
+    protected $foreignpolicy;
+
+    /**
+     * The value for the immigration field.
+     *
+     * @var        string
+     */
+    protected $immigration;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -103,7 +118,7 @@ abstract class Users implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * Initializes internal state of Base\Users object.
+     * Initializes internal state of Base\Key stances object.
      */
     public function __construct()
     {
@@ -198,9 +213,9 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>Users</code> instance.  If
-     * <code>obj</code> is an instance of <code>Users</code>, delegates to
-     * <code>equals(Users)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>Key stances</code> instance.  If
+     * <code>obj</code> is an instance of <code>Key stances</code>, delegates to
+     * <code>equals(Key stances)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -266,7 +281,7 @@ abstract class Users implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|Users The current object, for fluid interface
+     * @return $this|Key stances The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -338,50 +353,70 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * Get the [username] column value.
+     * Get the [healthcare] column value.
      *
      * @return string
      */
-    public function getUsername()
+    public function getHealthcare()
     {
-        return $this->username;
+        return $this->healthcare;
     }
 
     /**
-     * Get the [password_hash] column value.
+     * Get the [guncontrol] column value.
      *
      * @return string
      */
-    public function getPasswordHash()
+    public function getGuncontrol()
     {
-        return $this->password_hash;
+        return $this->guncontrol;
     }
 
     /**
-     * Get the [state] column value.
+     * Get the [womensrights] column value.
      *
      * @return string
      */
-    public function getState()
+    public function getWomensrights()
     {
-        return $this->state;
+        return $this->womensrights;
     }
 
     /**
-     * Get the [admin] column value.
+     * Get the [militaryspending] column value.
      *
      * @return string
      */
-    public function getAdmin()
+    public function getMilitaryspending()
     {
-        return $this->admin;
+        return $this->militaryspending;
+    }
+
+    /**
+     * Get the [foreignpolicy] column value.
+     *
+     * @return string
+     */
+    public function getForeignpolicy()
+    {
+        return $this->foreignpolicy;
+    }
+
+    /**
+     * Get the [immigration] column value.
+     *
+     * @return string
+     */
+    public function getImmigration()
+    {
+        return $this->immigration;
     }
 
     /**
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return $this|\Users The current object (for fluent API support)
+     * @return $this|\Key stances The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -391,91 +426,131 @@ abstract class Users implements ActiveRecordInterface
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[UsersTableMap::COL_ID] = true;
+            $this->modifiedColumns[Key stancesTableMap::COL_ID] = true;
         }
 
         return $this;
     } // setId()
 
     /**
-     * Set the value of [username] column.
+     * Set the value of [healthcare] column.
      *
      * @param string $v new value
-     * @return $this|\Users The current object (for fluent API support)
+     * @return $this|\Key stances The current object (for fluent API support)
      */
-    public function setUsername($v)
+    public function setHealthcare($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->username !== $v) {
-            $this->username = $v;
-            $this->modifiedColumns[UsersTableMap::COL_USERNAME] = true;
+        if ($this->healthcare !== $v) {
+            $this->healthcare = $v;
+            $this->modifiedColumns[Key stancesTableMap::COL_HEALTHCARE] = true;
         }
 
         return $this;
-    } // setUsername()
+    } // setHealthcare()
 
     /**
-     * Set the value of [password_hash] column.
+     * Set the value of [guncontrol] column.
      *
      * @param string $v new value
-     * @return $this|\Users The current object (for fluent API support)
+     * @return $this|\Key stances The current object (for fluent API support)
      */
-    public function setPasswordHash($v)
+    public function setGuncontrol($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->password_hash !== $v) {
-            $this->password_hash = $v;
-            $this->modifiedColumns[UsersTableMap::COL_PASSWORD_HASH] = true;
+        if ($this->guncontrol !== $v) {
+            $this->guncontrol = $v;
+            $this->modifiedColumns[Key stancesTableMap::COL_GUNCONTROL] = true;
         }
 
         return $this;
-    } // setPasswordHash()
+    } // setGuncontrol()
 
     /**
-     * Set the value of [state] column.
+     * Set the value of [womensrights] column.
      *
      * @param string $v new value
-     * @return $this|\Users The current object (for fluent API support)
+     * @return $this|\Key stances The current object (for fluent API support)
      */
-    public function setState($v)
+    public function setWomensrights($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->state !== $v) {
-            $this->state = $v;
-            $this->modifiedColumns[UsersTableMap::COL_STATE] = true;
+        if ($this->womensrights !== $v) {
+            $this->womensrights = $v;
+            $this->modifiedColumns[Key stancesTableMap::COL_WOMENSRIGHTS] = true;
         }
 
         return $this;
-    } // setState()
+    } // setWomensrights()
 
     /**
-     * Set the value of [admin] column.
+     * Set the value of [militaryspending] column.
      *
      * @param string $v new value
-     * @return $this|\Users The current object (for fluent API support)
+     * @return $this|\Key stances The current object (for fluent API support)
      */
-    public function setAdmin($v)
+    public function setMilitaryspending($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->admin !== $v) {
-            $this->admin = $v;
-            $this->modifiedColumns[UsersTableMap::COL_ADMIN] = true;
+        if ($this->militaryspending !== $v) {
+            $this->militaryspending = $v;
+            $this->modifiedColumns[Key stancesTableMap::COL_MILITARYSPENDING] = true;
         }
 
         return $this;
-    } // setAdmin()
+    } // setMilitaryspending()
+
+    /**
+     * Set the value of [foreignpolicy] column.
+     *
+     * @param string $v new value
+     * @return $this|\Key stances The current object (for fluent API support)
+     */
+    public function setForeignpolicy($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->foreignpolicy !== $v) {
+            $this->foreignpolicy = $v;
+            $this->modifiedColumns[Key stancesTableMap::COL_FOREIGNPOLICY] = true;
+        }
+
+        return $this;
+    } // setForeignpolicy()
+
+    /**
+     * Set the value of [immigration] column.
+     *
+     * @param string $v new value
+     * @return $this|\Key stances The current object (for fluent API support)
+     */
+    public function setImmigration($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->immigration !== $v) {
+            $this->immigration = $v;
+            $this->modifiedColumns[Key stancesTableMap::COL_IMMIGRATION] = true;
+        }
+
+        return $this;
+    } // setImmigration()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -513,20 +588,26 @@ abstract class Users implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : UsersTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : Key stancesTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : UsersTableMap::translateFieldName('Username', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->username = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : Key stancesTableMap::translateFieldName('Healthcare', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->healthcare = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : UsersTableMap::translateFieldName('PasswordHash', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->password_hash = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : Key stancesTableMap::translateFieldName('Guncontrol', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->guncontrol = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UsersTableMap::translateFieldName('State', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->state = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : Key stancesTableMap::translateFieldName('Womensrights', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->womensrights = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : UsersTableMap::translateFieldName('Admin', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->admin = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : Key stancesTableMap::translateFieldName('Militaryspending', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->militaryspending = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : Key stancesTableMap::translateFieldName('Foreignpolicy', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->foreignpolicy = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : Key stancesTableMap::translateFieldName('Immigration', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->immigration = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -535,10 +616,10 @@ abstract class Users implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 5; // 5 = UsersTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 7; // 7 = Key stancesTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Users'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Key stances'), 0, $e);
         }
     }
 
@@ -580,13 +661,13 @@ abstract class Users implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(UsersTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(Key stancesTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildUsersQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildKey stancesQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -605,8 +686,8 @@ abstract class Users implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see Users::setDeleted()
-     * @see Users::isDeleted()
+     * @see Key stances::setDeleted()
+     * @see Key stances::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -615,11 +696,11 @@ abstract class Users implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(UsersTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(Key stancesTableMap::DATABASE_NAME);
         }
 
         $con->transaction(function () use ($con) {
-            $deleteQuery = ChildUsersQuery::create()
+            $deleteQuery = ChildKey stancesQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -654,7 +735,7 @@ abstract class Users implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(UsersTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(Key stancesTableMap::DATABASE_NAME);
         }
 
         return $con->transaction(function () use ($con) {
@@ -673,7 +754,7 @@ abstract class Users implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                UsersTableMap::addInstanceToPool($this);
+                Key stancesTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -730,30 +811,36 @@ abstract class Users implements ActiveRecordInterface
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[UsersTableMap::COL_ID] = true;
+        $this->modifiedColumns[Key stancesTableMap::COL_ID] = true;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . UsersTableMap::COL_ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . Key stancesTableMap::COL_ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(UsersTableMap::COL_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'id';
+        if ($this->isColumnModified(Key stancesTableMap::COL_ID)) {
+            $modifiedColumns[':p' . $index++]  = 'ID';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_USERNAME)) {
-            $modifiedColumns[':p' . $index++]  = 'username';
+        if ($this->isColumnModified(Key stancesTableMap::COL_HEALTHCARE)) {
+            $modifiedColumns[':p' . $index++]  = 'HealthCare';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_PASSWORD_HASH)) {
-            $modifiedColumns[':p' . $index++]  = 'password_hash';
+        if ($this->isColumnModified(Key stancesTableMap::COL_GUNCONTROL)) {
+            $modifiedColumns[':p' . $index++]  = 'GunControl';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_STATE)) {
-            $modifiedColumns[':p' . $index++]  = 'state';
+        if ($this->isColumnModified(Key stancesTableMap::COL_WOMENSRIGHTS)) {
+            $modifiedColumns[':p' . $index++]  = 'WomensRights';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_ADMIN)) {
-            $modifiedColumns[':p' . $index++]  = 'Admin';
+        if ($this->isColumnModified(Key stancesTableMap::COL_MILITARYSPENDING)) {
+            $modifiedColumns[':p' . $index++]  = 'MilitarySpending';
+        }
+        if ($this->isColumnModified(Key stancesTableMap::COL_FOREIGNPOLICY)) {
+            $modifiedColumns[':p' . $index++]  = 'ForeignPolicy';
+        }
+        if ($this->isColumnModified(Key stancesTableMap::COL_IMMIGRATION)) {
+            $modifiedColumns[':p' . $index++]  = 'Immigration';
         }
 
         $sql = sprintf(
-            'INSERT INTO users (%s) VALUES (%s)',
+            'INSERT INTO key stances (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -762,20 +849,26 @@ abstract class Users implements ActiveRecordInterface
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case 'id':
+                    case 'ID':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
-                    case 'username':
-                        $stmt->bindValue($identifier, $this->username, PDO::PARAM_STR);
+                    case 'HealthCare':
+                        $stmt->bindValue($identifier, $this->healthcare, PDO::PARAM_STR);
                         break;
-                    case 'password_hash':
-                        $stmt->bindValue($identifier, $this->password_hash, PDO::PARAM_STR);
+                    case 'GunControl':
+                        $stmt->bindValue($identifier, $this->guncontrol, PDO::PARAM_STR);
                         break;
-                    case 'state':
-                        $stmt->bindValue($identifier, $this->state, PDO::PARAM_STR);
+                    case 'WomensRights':
+                        $stmt->bindValue($identifier, $this->womensrights, PDO::PARAM_STR);
                         break;
-                    case 'Admin':
-                        $stmt->bindValue($identifier, $this->admin, PDO::PARAM_STR);
+                    case 'MilitarySpending':
+                        $stmt->bindValue($identifier, $this->militaryspending, PDO::PARAM_STR);
+                        break;
+                    case 'ForeignPolicy':
+                        $stmt->bindValue($identifier, $this->foreignpolicy, PDO::PARAM_STR);
+                        break;
+                    case 'Immigration':
+                        $stmt->bindValue($identifier, $this->immigration, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -823,7 +916,7 @@ abstract class Users implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = UsersTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = Key stancesTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -843,16 +936,22 @@ abstract class Users implements ActiveRecordInterface
                 return $this->getId();
                 break;
             case 1:
-                return $this->getUsername();
+                return $this->getHealthcare();
                 break;
             case 2:
-                return $this->getPasswordHash();
+                return $this->getGuncontrol();
                 break;
             case 3:
-                return $this->getState();
+                return $this->getWomensrights();
                 break;
             case 4:
-                return $this->getAdmin();
+                return $this->getMilitaryspending();
+                break;
+            case 5:
+                return $this->getForeignpolicy();
+                break;
+            case 6:
+                return $this->getImmigration();
                 break;
             default:
                 return null;
@@ -877,17 +976,19 @@ abstract class Users implements ActiveRecordInterface
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
     {
 
-        if (isset($alreadyDumpedObjects['Users'][$this->hashCode()])) {
+        if (isset($alreadyDumpedObjects['Key stances'][$this->hashCode()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Users'][$this->hashCode()] = true;
-        $keys = UsersTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['Key stances'][$this->hashCode()] = true;
+        $keys = Key stancesTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
-            $keys[1] => $this->getUsername(),
-            $keys[2] => $this->getPasswordHash(),
-            $keys[3] => $this->getState(),
-            $keys[4] => $this->getAdmin(),
+            $keys[1] => $this->getHealthcare(),
+            $keys[2] => $this->getGuncontrol(),
+            $keys[3] => $this->getWomensrights(),
+            $keys[4] => $this->getMilitaryspending(),
+            $keys[5] => $this->getForeignpolicy(),
+            $keys[6] => $this->getImmigration(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -907,11 +1008,11 @@ abstract class Users implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Users
+     * @return $this|\Key stances
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = UsersTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = Key stancesTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -922,7 +1023,7 @@ abstract class Users implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Users
+     * @return $this|\Key stances
      */
     public function setByPosition($pos, $value)
     {
@@ -931,16 +1032,22 @@ abstract class Users implements ActiveRecordInterface
                 $this->setId($value);
                 break;
             case 1:
-                $this->setUsername($value);
+                $this->setHealthcare($value);
                 break;
             case 2:
-                $this->setPasswordHash($value);
+                $this->setGuncontrol($value);
                 break;
             case 3:
-                $this->setState($value);
+                $this->setWomensrights($value);
                 break;
             case 4:
-                $this->setAdmin($value);
+                $this->setMilitaryspending($value);
+                break;
+            case 5:
+                $this->setForeignpolicy($value);
+                break;
+            case 6:
+                $this->setImmigration($value);
                 break;
         } // switch()
 
@@ -966,22 +1073,28 @@ abstract class Users implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = UsersTableMap::getFieldNames($keyType);
+        $keys = Key stancesTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
             $this->setId($arr[$keys[0]]);
         }
         if (array_key_exists($keys[1], $arr)) {
-            $this->setUsername($arr[$keys[1]]);
+            $this->setHealthcare($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setPasswordHash($arr[$keys[2]]);
+            $this->setGuncontrol($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setState($arr[$keys[3]]);
+            $this->setWomensrights($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setAdmin($arr[$keys[4]]);
+            $this->setMilitaryspending($arr[$keys[4]]);
+        }
+        if (array_key_exists($keys[5], $arr)) {
+            $this->setForeignpolicy($arr[$keys[5]]);
+        }
+        if (array_key_exists($keys[6], $arr)) {
+            $this->setImmigration($arr[$keys[6]]);
         }
     }
 
@@ -1002,7 +1115,7 @@ abstract class Users implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Users The current object, for fluid interface
+     * @return $this|\Key stances The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1022,22 +1135,28 @@ abstract class Users implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(UsersTableMap::DATABASE_NAME);
+        $criteria = new Criteria(Key stancesTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(UsersTableMap::COL_ID)) {
-            $criteria->add(UsersTableMap::COL_ID, $this->id);
+        if ($this->isColumnModified(Key stancesTableMap::COL_ID)) {
+            $criteria->add(Key stancesTableMap::COL_ID, $this->id);
         }
-        if ($this->isColumnModified(UsersTableMap::COL_USERNAME)) {
-            $criteria->add(UsersTableMap::COL_USERNAME, $this->username);
+        if ($this->isColumnModified(Key stancesTableMap::COL_HEALTHCARE)) {
+            $criteria->add(Key stancesTableMap::COL_HEALTHCARE, $this->healthcare);
         }
-        if ($this->isColumnModified(UsersTableMap::COL_PASSWORD_HASH)) {
-            $criteria->add(UsersTableMap::COL_PASSWORD_HASH, $this->password_hash);
+        if ($this->isColumnModified(Key stancesTableMap::COL_GUNCONTROL)) {
+            $criteria->add(Key stancesTableMap::COL_GUNCONTROL, $this->guncontrol);
         }
-        if ($this->isColumnModified(UsersTableMap::COL_STATE)) {
-            $criteria->add(UsersTableMap::COL_STATE, $this->state);
+        if ($this->isColumnModified(Key stancesTableMap::COL_WOMENSRIGHTS)) {
+            $criteria->add(Key stancesTableMap::COL_WOMENSRIGHTS, $this->womensrights);
         }
-        if ($this->isColumnModified(UsersTableMap::COL_ADMIN)) {
-            $criteria->add(UsersTableMap::COL_ADMIN, $this->admin);
+        if ($this->isColumnModified(Key stancesTableMap::COL_MILITARYSPENDING)) {
+            $criteria->add(Key stancesTableMap::COL_MILITARYSPENDING, $this->militaryspending);
+        }
+        if ($this->isColumnModified(Key stancesTableMap::COL_FOREIGNPOLICY)) {
+            $criteria->add(Key stancesTableMap::COL_FOREIGNPOLICY, $this->foreignpolicy);
+        }
+        if ($this->isColumnModified(Key stancesTableMap::COL_IMMIGRATION)) {
+            $criteria->add(Key stancesTableMap::COL_IMMIGRATION, $this->immigration);
         }
 
         return $criteria;
@@ -1055,8 +1174,8 @@ abstract class Users implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = ChildUsersQuery::create();
-        $criteria->add(UsersTableMap::COL_ID, $this->id);
+        $criteria = ChildKey stancesQuery::create();
+        $criteria->add(Key stancesTableMap::COL_ID, $this->id);
 
         return $criteria;
     }
@@ -1118,17 +1237,19 @@ abstract class Users implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Users (or compatible) type.
+     * @param      object $copyObj An object of \Key stances (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setUsername($this->getUsername());
-        $copyObj->setPasswordHash($this->getPasswordHash());
-        $copyObj->setState($this->getState());
-        $copyObj->setAdmin($this->getAdmin());
+        $copyObj->setHealthcare($this->getHealthcare());
+        $copyObj->setGuncontrol($this->getGuncontrol());
+        $copyObj->setWomensrights($this->getWomensrights());
+        $copyObj->setMilitaryspending($this->getMilitaryspending());
+        $copyObj->setForeignpolicy($this->getForeignpolicy());
+        $copyObj->setImmigration($this->getImmigration());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1144,7 +1265,7 @@ abstract class Users implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Users Clone of current object.
+     * @return \Key stances Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1165,10 +1286,12 @@ abstract class Users implements ActiveRecordInterface
     public function clear()
     {
         $this->id = null;
-        $this->username = null;
-        $this->password_hash = null;
-        $this->state = null;
-        $this->admin = null;
+        $this->healthcare = null;
+        $this->guncontrol = null;
+        $this->womensrights = null;
+        $this->militaryspending = null;
+        $this->foreignpolicy = null;
+        $this->immigration = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -1198,7 +1321,7 @@ abstract class Users implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(UsersTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(Key stancesTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**

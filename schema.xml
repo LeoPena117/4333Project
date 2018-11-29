@@ -21,6 +21,15 @@
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
   </table>
+  <table name="comments" idMethod="native" phpName="Comments">
+    <column name="ID" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="Comment" phpName="Comment" type="VARCHAR" size="1000" required="true"/>
+    <column name="User" phpName="User" type="VARCHAR" size="50" required="true"/>
+    <column name="Senator" phpName="Senator" type="INTEGER" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
   <table name="democrats" idMethod="native" phpName="Democrats">
     <column name="ID" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="Name" phpName="Name" type="VARCHAR" size="128" required="true"/>
@@ -39,11 +48,42 @@
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
   </table>
+  <table name="key stances" idMethod="native" phpName="Key stances">
+    <column name="ID" phpName="Id" type="INTEGER" size="5" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="HealthCare" phpName="Healthcare" type="VARCHAR" size="10000" required="true"/>
+    <column name="GunControl" phpName="Guncontrol" type="VARCHAR" size="10000" required="true"/>
+    <column name="WomensRights" phpName="Womensrights" type="VARCHAR" size="10000" required="true"/>
+    <column name="MilitarySpending" phpName="Militaryspending" type="VARCHAR" size="10000" required="true"/>
+    <column name="ForeignPolicy" phpName="Foreignpolicy" type="VARCHAR" size="10000" required="true"/>
+    <column name="Immigration" phpName="Immigration" type="VARCHAR" size="10000" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
   <table name="not_up_for_reelection" idMethod="native" phpName="NotUpForReelection">
     <column name="ID" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="Name" phpName="Name" type="VARCHAR" size="128" required="true"/>
     <column name="State" phpName="State" type="VARCHAR" size="2" required="true"/>
     <column name="Party" phpName="Party" type="VARCHAR" size="1" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="opponents" idMethod="native" phpName="Opponents">
+    <column name="ID" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="Name" phpName="Name" type="VARCHAR" size="50" required="true"/>
+    <column name="Party" phpName="Party" type="VARCHAR" size="1" required="true"/>
+    <column name="State" phpName="State" type="VARCHAR" size="2" required="true"/>
+    <column name="OpposingSenator" phpName="Opposingsenator" type="INTEGER" size="5" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="participation" idMethod="native" phpName="Participation">
+    <column name="ID" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="Votes Cast" phpName="Votes cast" type="INTEGER" required="true"/>
+    <column name="Sessions Attended" phpName="Sessions attended" type="INTEGER" required="true"/>
+    <column name="Commitees" phpName="Commitees" type="INTEGER" required="true"/>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
@@ -71,6 +111,7 @@
     <column name="username" phpName="Username" type="VARCHAR" size="50" required="true"/>
     <column name="password_hash" phpName="PasswordHash" type="VARCHAR" size="100" required="true"/>
     <column name="state" phpName="State" type="VARCHAR" size="2" required="true"/>
+    <column name="Admin" phpName="Admin" type="VARCHAR" size="5" required="true"/>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>

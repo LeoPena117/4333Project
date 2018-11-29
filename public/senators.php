@@ -23,27 +23,18 @@ $container['view'] = function($container) {
 };
 
 $app->get('/', function ($request, $response, $args) {
-
-    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-        $data=$_SESSION;
-    $Senators = AllsenatorsQuery::create()->groupByName();
-
-    $Rep = RepublicansQuery::create()->groupByName();
-    $Ind = IndependentsQuery::create()->groupByName();
-    $Dem = DemocratsQuery::create()->groupByName();
-
-    $this->view->render($response, 'List.html', [
-        "Senators" => $Senators,
-        "Dem"=> $Dem,
-        "Rep"=> $Rep,
-        "Ind"=> $Ind,
-        "data" => $data
-    ]);
-    }
-
-    $this->view->render($response, 'login.html');
+    $data=$_SESSION;
+    $this->view->render($response, 'home.html',["data"=>$data]);
     return $response;
 })->setName('home');
+
+$app->get('/handlers/login', function ($request, $response, $args) {
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+        return true;
+    }
+    $this->view->render($response, 'login.html');
+    return $response;
+});
 
 $app->post('/handlers/login', function ($request, $response, $args) {
     $User = UsersQuery::create()->findOneByUsername($request->getParam("username"));
@@ -57,6 +48,8 @@ $app->post('/handlers/login', function ($request, $response, $args) {
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $User->getUsername();
             $_SESSION['id'] = $User->getId();
+            if($User->getAdmin()=="True")
+            $_SESSION['admin'] = true;
             $data = array('username'=>$User->getUsername(), 'hash'=>$User->getPasswordHash(),'isuser'=>true);
             $this->view->render($response, 'List.html');
             return $response->withJson($data);
@@ -240,13 +233,15 @@ $app->post('/handlers/changePW', function ($request, $response, $args) {
 $app->get('/handlers/logout', function ($request, $response, $args) {
     session_unset(); 
     session_destroy();  
-    $this->view->render($response, 'login.html');
+    $this->view->render($response, 'home.html');
     return $response;
 });
 
-$app->get('/handlers/admin', function ($request, $response, $args) {
+$app->get('/handlers/Admin', function ($request, $response, $args) {
+    $Users=UsersQuery::create()->find();
+            $data=$_SESSION;
 
-    $this->view->render($response, 'admin.html');
+    $this->view->render($response, 'admin.html',["Users"=>$Users,"data"=>$data]);
     return $response;
 });
 

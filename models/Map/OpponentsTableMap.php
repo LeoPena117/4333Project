@@ -2,8 +2,8 @@
 
 namespace Map;
 
-use \Users;
-use \UsersQuery;
+use \Opponents;
+use \OpponentsQuery;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\InstancePoolTrait;
@@ -16,7 +16,7 @@ use Propel\Runtime\Map\TableMapTrait;
 
 
 /**
- * This class defines the structure of the 'users' table.
+ * This class defines the structure of the 'opponents' table.
  *
  *
  *
@@ -26,7 +26,7 @@ use Propel\Runtime\Map\TableMapTrait;
  * (i.e. if it's a text column type).
  *
  */
-class UsersTableMap extends TableMap
+class OpponentsTableMap extends TableMap
 {
     use InstancePoolTrait;
     use TableMapTrait;
@@ -34,7 +34,7 @@ class UsersTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = '.Map.UsersTableMap';
+    const CLASS_NAME = '.Map.OpponentsTableMap';
 
     /**
      * The default database name for this class
@@ -44,17 +44,17 @@ class UsersTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = 'users';
+    const TABLE_NAME = 'opponents';
 
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Users';
+    const OM_CLASS = '\\Opponents';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'Users';
+    const CLASS_DEFAULT = 'Opponents';
 
     /**
      * The total number of columns
@@ -72,29 +72,29 @@ class UsersTableMap extends TableMap
     const NUM_HYDRATE_COLUMNS = 5;
 
     /**
-     * the column name for the id field
+     * the column name for the ID field
      */
-    const COL_ID = 'users.id';
+    const COL_ID = 'opponents.ID';
 
     /**
-     * the column name for the username field
+     * the column name for the Name field
      */
-    const COL_USERNAME = 'users.username';
+    const COL_NAME = 'opponents.Name';
 
     /**
-     * the column name for the password_hash field
+     * the column name for the Party field
      */
-    const COL_PASSWORD_HASH = 'users.password_hash';
+    const COL_PARTY = 'opponents.Party';
 
     /**
-     * the column name for the state field
+     * the column name for the State field
      */
-    const COL_STATE = 'users.state';
+    const COL_STATE = 'opponents.State';
 
     /**
-     * the column name for the Admin field
+     * the column name for the OpposingSenator field
      */
-    const COL_ADMIN = 'users.Admin';
+    const COL_OPPOSINGSENATOR = 'opponents.OpposingSenator';
 
     /**
      * The default string format for model objects of the related table
@@ -108,10 +108,10 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Username', 'PasswordHash', 'State', 'Admin', ),
-        self::TYPE_CAMELNAME     => array('id', 'username', 'passwordHash', 'state', 'admin', ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID, UsersTableMap::COL_USERNAME, UsersTableMap::COL_PASSWORD_HASH, UsersTableMap::COL_STATE, UsersTableMap::COL_ADMIN, ),
-        self::TYPE_FIELDNAME     => array('id', 'username', 'password_hash', 'state', 'Admin', ),
+        self::TYPE_PHPNAME       => array('Id', 'Name', 'Party', 'State', 'Opposingsenator', ),
+        self::TYPE_CAMELNAME     => array('id', 'name', 'party', 'state', 'opposingsenator', ),
+        self::TYPE_COLNAME       => array(OpponentsTableMap::COL_ID, OpponentsTableMap::COL_NAME, OpponentsTableMap::COL_PARTY, OpponentsTableMap::COL_STATE, OpponentsTableMap::COL_OPPOSINGSENATOR, ),
+        self::TYPE_FIELDNAME     => array('ID', 'Name', 'Party', 'State', 'OpposingSenator', ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
     );
 
@@ -122,10 +122,10 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Username' => 1, 'PasswordHash' => 2, 'State' => 3, 'Admin' => 4, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'username' => 1, 'passwordHash' => 2, 'state' => 3, 'admin' => 4, ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID => 0, UsersTableMap::COL_USERNAME => 1, UsersTableMap::COL_PASSWORD_HASH => 2, UsersTableMap::COL_STATE => 3, UsersTableMap::COL_ADMIN => 4, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'username' => 1, 'password_hash' => 2, 'state' => 3, 'Admin' => 4, ),
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'Party' => 2, 'State' => 3, 'Opposingsenator' => 4, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'party' => 2, 'state' => 3, 'opposingsenator' => 4, ),
+        self::TYPE_COLNAME       => array(OpponentsTableMap::COL_ID => 0, OpponentsTableMap::COL_NAME => 1, OpponentsTableMap::COL_PARTY => 2, OpponentsTableMap::COL_STATE => 3, OpponentsTableMap::COL_OPPOSINGSENATOR => 4, ),
+        self::TYPE_FIELDNAME     => array('ID' => 0, 'Name' => 1, 'Party' => 2, 'State' => 3, 'OpposingSenator' => 4, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
     );
 
@@ -139,18 +139,18 @@ class UsersTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('users');
-        $this->setPhpName('Users');
+        $this->setName('opponents');
+        $this->setPhpName('Opponents');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Users');
+        $this->setClassName('\\Opponents');
         $this->setPackage('');
         $this->setUseIdGenerator(true);
         // columns
-        $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
-        $this->addColumn('username', 'Username', 'VARCHAR', true, 50, null);
-        $this->addColumn('password_hash', 'PasswordHash', 'VARCHAR', true, 100, null);
-        $this->addColumn('state', 'State', 'VARCHAR', true, 2, null);
-        $this->addColumn('Admin', 'Admin', 'VARCHAR', true, 5, null);
+        $this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
+        $this->addColumn('Name', 'Name', 'VARCHAR', true, 50, null);
+        $this->addColumn('Party', 'Party', 'VARCHAR', true, 1, null);
+        $this->addColumn('State', 'State', 'VARCHAR', true, 2, null);
+        $this->addColumn('OpposingSenator', 'Opposingsenator', 'INTEGER', true, 5, null);
     } // initialize()
 
     /**
@@ -217,7 +217,7 @@ class UsersTableMap extends TableMap
      */
     public static function getOMClass($withPrefix = true)
     {
-        return $withPrefix ? UsersTableMap::CLASS_DEFAULT : UsersTableMap::OM_CLASS;
+        return $withPrefix ? OpponentsTableMap::CLASS_DEFAULT : OpponentsTableMap::OM_CLASS;
     }
 
     /**
@@ -231,22 +231,22 @@ class UsersTableMap extends TableMap
      *
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
-     * @return array           (Users object, last column rank)
+     * @return array           (Opponents object, last column rank)
      */
     public static function populateObject($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        $key = UsersTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
-        if (null !== ($obj = UsersTableMap::getInstanceFromPool($key))) {
+        $key = OpponentsTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
+        if (null !== ($obj = OpponentsTableMap::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $offset, true); // rehydrate
-            $col = $offset + UsersTableMap::NUM_HYDRATE_COLUMNS;
+            $col = $offset + OpponentsTableMap::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = UsersTableMap::OM_CLASS;
-            /** @var Users $obj */
+            $cls = OpponentsTableMap::OM_CLASS;
+            /** @var Opponents $obj */
             $obj = new $cls();
             $col = $obj->hydrate($row, $offset, false, $indexType);
-            UsersTableMap::addInstanceToPool($obj, $key);
+            OpponentsTableMap::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -269,18 +269,18 @@ class UsersTableMap extends TableMap
         $cls = static::getOMClass(false);
         // populate the object(s)
         while ($row = $dataFetcher->fetch()) {
-            $key = UsersTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
-            if (null !== ($obj = UsersTableMap::getInstanceFromPool($key))) {
+            $key = OpponentsTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
+            if (null !== ($obj = OpponentsTableMap::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
                 $results[] = $obj;
             } else {
-                /** @var Users $obj */
+                /** @var Opponents $obj */
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                UsersTableMap::addInstanceToPool($obj, $key);
+                OpponentsTableMap::addInstanceToPool($obj, $key);
             } // if key exists
         }
 
@@ -301,17 +301,17 @@ class UsersTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(UsersTableMap::COL_ID);
-            $criteria->addSelectColumn(UsersTableMap::COL_USERNAME);
-            $criteria->addSelectColumn(UsersTableMap::COL_PASSWORD_HASH);
-            $criteria->addSelectColumn(UsersTableMap::COL_STATE);
-            $criteria->addSelectColumn(UsersTableMap::COL_ADMIN);
+            $criteria->addSelectColumn(OpponentsTableMap::COL_ID);
+            $criteria->addSelectColumn(OpponentsTableMap::COL_NAME);
+            $criteria->addSelectColumn(OpponentsTableMap::COL_PARTY);
+            $criteria->addSelectColumn(OpponentsTableMap::COL_STATE);
+            $criteria->addSelectColumn(OpponentsTableMap::COL_OPPOSINGSENATOR);
         } else {
-            $criteria->addSelectColumn($alias . '.id');
-            $criteria->addSelectColumn($alias . '.username');
-            $criteria->addSelectColumn($alias . '.password_hash');
-            $criteria->addSelectColumn($alias . '.state');
-            $criteria->addSelectColumn($alias . '.Admin');
+            $criteria->addSelectColumn($alias . '.ID');
+            $criteria->addSelectColumn($alias . '.Name');
+            $criteria->addSelectColumn($alias . '.Party');
+            $criteria->addSelectColumn($alias . '.State');
+            $criteria->addSelectColumn($alias . '.OpposingSenator');
         }
     }
 
@@ -324,7 +324,7 @@ class UsersTableMap extends TableMap
      */
     public static function getTableMap()
     {
-        return Propel::getServiceContainer()->getDatabaseMap(UsersTableMap::DATABASE_NAME)->getTable(UsersTableMap::TABLE_NAME);
+        return Propel::getServiceContainer()->getDatabaseMap(OpponentsTableMap::DATABASE_NAME)->getTable(OpponentsTableMap::TABLE_NAME);
     }
 
     /**
@@ -332,16 +332,16 @@ class UsersTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-        $dbMap = Propel::getServiceContainer()->getDatabaseMap(UsersTableMap::DATABASE_NAME);
-        if (!$dbMap->hasTable(UsersTableMap::TABLE_NAME)) {
-            $dbMap->addTableObject(new UsersTableMap());
+        $dbMap = Propel::getServiceContainer()->getDatabaseMap(OpponentsTableMap::DATABASE_NAME);
+        if (!$dbMap->hasTable(OpponentsTableMap::TABLE_NAME)) {
+            $dbMap->addTableObject(new OpponentsTableMap());
         }
     }
 
     /**
-     * Performs a DELETE on the database, given a Users or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a Opponents or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or Users object or primary key or array of primary keys
+     * @param mixed               $values Criteria or Opponents object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param  ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -352,27 +352,27 @@ class UsersTableMap extends TableMap
      public static function doDelete($values, ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(UsersTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(OpponentsTableMap::DATABASE_NAME);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \Users) { // it's a model object
+        } elseif ($values instanceof \Opponents) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(UsersTableMap::DATABASE_NAME);
-            $criteria->add(UsersTableMap::COL_ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(OpponentsTableMap::DATABASE_NAME);
+            $criteria->add(OpponentsTableMap::COL_ID, (array) $values, Criteria::IN);
         }
 
-        $query = UsersQuery::create()->mergeWith($criteria);
+        $query = OpponentsQuery::create()->mergeWith($criteria);
 
         if ($values instanceof Criteria) {
-            UsersTableMap::clearInstancePool();
+            OpponentsTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
             foreach ((array) $values as $singleval) {
-                UsersTableMap::removeInstanceFromPool($singleval);
+                OpponentsTableMap::removeInstanceFromPool($singleval);
             }
         }
 
@@ -380,20 +380,20 @@ class UsersTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the users table.
+     * Deletes all rows from the opponents table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
      */
     public static function doDeleteAll(ConnectionInterface $con = null)
     {
-        return UsersQuery::create()->doDeleteAll($con);
+        return OpponentsQuery::create()->doDeleteAll($con);
     }
 
     /**
-     * Performs an INSERT on the database, given a Users or Criteria object.
+     * Performs an INSERT on the database, given a Opponents or Criteria object.
      *
-     * @param mixed               $criteria Criteria or Users object containing data that is used to create the INSERT statement.
+     * @param mixed               $criteria Criteria or Opponents object containing data that is used to create the INSERT statement.
      * @param ConnectionInterface $con the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -402,22 +402,22 @@ class UsersTableMap extends TableMap
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(UsersTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(OpponentsTableMap::DATABASE_NAME);
         }
 
         if ($criteria instanceof Criteria) {
             $criteria = clone $criteria; // rename for clarity
         } else {
-            $criteria = $criteria->buildCriteria(); // build Criteria from Users object
+            $criteria = $criteria->buildCriteria(); // build Criteria from Opponents object
         }
 
-        if ($criteria->containsKey(UsersTableMap::COL_ID) && $criteria->keyContainsValue(UsersTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.UsersTableMap::COL_ID.')');
+        if ($criteria->containsKey(OpponentsTableMap::COL_ID) && $criteria->keyContainsValue(OpponentsTableMap::COL_ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.OpponentsTableMap::COL_ID.')');
         }
 
 
         // Set the correct dbName
-        $query = UsersQuery::create()->mergeWith($criteria);
+        $query = OpponentsQuery::create()->mergeWith($criteria);
 
         // use transaction because $criteria could contain info
         // for more than one table (I guess, conceivably)
@@ -426,7 +426,7 @@ class UsersTableMap extends TableMap
         });
     }
 
-} // UsersTableMap
+} // OpponentsTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-UsersTableMap::buildTableMap();
+OpponentsTableMap::buildTableMap();

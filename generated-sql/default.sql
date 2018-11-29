@@ -37,6 +37,21 @@ CREATE TABLE `biography`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
+-- comments
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `comments`;
+
+CREATE TABLE `comments`
+(
+    `ID` INTEGER NOT NULL AUTO_INCREMENT,
+    `Comment` VARCHAR(1000) NOT NULL,
+    `User` VARCHAR(50) NOT NULL,
+    `Senator` INTEGER NOT NULL,
+    PRIMARY KEY (`ID`)
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
 -- democrats
 -- ---------------------------------------------------------------------
 
@@ -67,6 +82,24 @@ CREATE TABLE `independents`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
+-- key stances
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `key stances`;
+
+CREATE TABLE `key stances`
+(
+    `ID` INTEGER(5) NOT NULL AUTO_INCREMENT,
+    `HealthCare` VARCHAR(10000) NOT NULL,
+    `GunControl` VARCHAR(10000) NOT NULL,
+    `WomensRights` VARCHAR(10000) NOT NULL,
+    `MilitarySpending` VARCHAR(10000) NOT NULL,
+    `ForeignPolicy` VARCHAR(10000) NOT NULL,
+    `Immigration` VARCHAR(10000) NOT NULL,
+    PRIMARY KEY (`ID`)
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
 -- not_up_for_reelection
 -- ---------------------------------------------------------------------
 
@@ -78,6 +111,37 @@ CREATE TABLE `not_up_for_reelection`
     `Name` VARCHAR(128) NOT NULL,
     `State` VARCHAR(2) NOT NULL,
     `Party` VARCHAR(1) NOT NULL,
+    PRIMARY KEY (`ID`)
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- opponents
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `opponents`;
+
+CREATE TABLE `opponents`
+(
+    `ID` INTEGER NOT NULL AUTO_INCREMENT,
+    `Name` VARCHAR(50) NOT NULL,
+    `Party` VARCHAR(1) NOT NULL,
+    `State` VARCHAR(2) NOT NULL,
+    `OpposingSenator` INTEGER(5) NOT NULL,
+    PRIMARY KEY (`ID`)
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- participation
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `participation`;
+
+CREATE TABLE `participation`
+(
+    `ID` INTEGER NOT NULL AUTO_INCREMENT,
+    `Votes Cast` INTEGER NOT NULL,
+    `Sessions Attended` INTEGER NOT NULL,
+    `Commitees` INTEGER NOT NULL,
     PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB;
 
@@ -123,6 +187,7 @@ CREATE TABLE `users`
     `username` VARCHAR(50) NOT NULL,
     `password_hash` VARCHAR(100) NOT NULL,
     `state` VARCHAR(2) NOT NULL,
+    `Admin` VARCHAR(5) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 

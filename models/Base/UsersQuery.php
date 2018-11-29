@@ -23,11 +23,13 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsersQuery orderByUsername($order = Criteria::ASC) Order by the username column
  * @method     ChildUsersQuery orderByPasswordHash($order = Criteria::ASC) Order by the password_hash column
  * @method     ChildUsersQuery orderByState($order = Criteria::ASC) Order by the state column
+ * @method     ChildUsersQuery orderByAdmin($order = Criteria::ASC) Order by the Admin column
  *
  * @method     ChildUsersQuery groupById() Group by the id column
  * @method     ChildUsersQuery groupByUsername() Group by the username column
  * @method     ChildUsersQuery groupByPasswordHash() Group by the password_hash column
  * @method     ChildUsersQuery groupByState() Group by the state column
+ * @method     ChildUsersQuery groupByAdmin() Group by the Admin column
  *
  * @method     ChildUsersQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildUsersQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -43,7 +45,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsers findOneById(int $id) Return the first ChildUsers filtered by the id column
  * @method     ChildUsers findOneByUsername(string $username) Return the first ChildUsers filtered by the username column
  * @method     ChildUsers findOneByPasswordHash(string $password_hash) Return the first ChildUsers filtered by the password_hash column
- * @method     ChildUsers findOneByState(string $state) Return the first ChildUsers filtered by the state column *
+ * @method     ChildUsers findOneByState(string $state) Return the first ChildUsers filtered by the state column
+ * @method     ChildUsers findOneByAdmin(string $Admin) Return the first ChildUsers filtered by the Admin column *
 
  * @method     ChildUsers requirePk($key, ConnectionInterface $con = null) Return the ChildUsers by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOne(ConnectionInterface $con = null) Return the first ChildUsers matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -52,12 +55,14 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUsers requireOneByUsername(string $username) Return the first ChildUsers filtered by the username column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByPasswordHash(string $password_hash) Return the first ChildUsers filtered by the password_hash column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByState(string $state) Return the first ChildUsers filtered by the state column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneByAdmin(string $Admin) Return the first ChildUsers filtered by the Admin column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildUsers[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildUsers objects based on current ModelCriteria
  * @method     ChildUsers[]|ObjectCollection findById(int $id) Return ChildUsers objects filtered by the id column
  * @method     ChildUsers[]|ObjectCollection findByUsername(string $username) Return ChildUsers objects filtered by the username column
  * @method     ChildUsers[]|ObjectCollection findByPasswordHash(string $password_hash) Return ChildUsers objects filtered by the password_hash column
  * @method     ChildUsers[]|ObjectCollection findByState(string $state) Return ChildUsers objects filtered by the state column
+ * @method     ChildUsers[]|ObjectCollection findByAdmin(string $Admin) Return ChildUsers objects filtered by the Admin column
  * @method     ChildUsers[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -156,7 +161,7 @@ abstract class UsersQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, username, password_hash, state FROM users WHERE id = :p0';
+        $sql = 'SELECT id, username, password_hash, state, Admin FROM users WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -360,6 +365,31 @@ abstract class UsersQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(UsersTableMap::COL_STATE, $state, $comparison);
+    }
+
+    /**
+     * Filter the query on the Admin column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByAdmin('fooValue');   // WHERE Admin = 'fooValue'
+     * $query->filterByAdmin('%fooValue%', Criteria::LIKE); // WHERE Admin LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $admin The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUsersQuery The current query, for fluid interface
+     */
+    public function filterByAdmin($admin = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($admin)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(UsersTableMap::COL_ADMIN, $admin, $comparison);
     }
 
     /**
