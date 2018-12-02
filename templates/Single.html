@@ -52,6 +52,58 @@
 		<div class="col-md-2">
 			<img class="thumb" src= "{{ Senator.ImgURL }}" width="300px">
 		</div>
+
+<div id="_template" class="card w-100">
+	<h3 class="card-header">Add a comment</h3>
+	<div class="card-body">
+		<form>
+			<div class="form-group">
+				<textarea id="Comment" rows="4" cols="60" class="form-control" placeholder="Comment"></textarea>
+			</div>
+			<div class="form-group">
+				<button id="postBtn" class="btn btn-primary" >Post</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="Copy" class="card w-100 mt-3">
+	<div class="card-header">
+		<div class="row">
+			<div class="col-md-11">
+				<h4>etomai</h4>
+			</div>
+			<div class="col-md-1">
+			</div>
+		</div>
+	</div>
+
+	<div id="CopyComment" class="card-body">
+		<p>This is my comment.  I think the post is too long.</p>
+	</div>
+</div>
+
+<script>
+	
+ $.ajax({
+        url : baseurl 
+            + "/handlers/getall/"+$('SenatorName').attr('id'),
+            dataType : "text"
+        }).done(function(data){
+        	data=JSON.parse(data)
+            for(i=0;i<data.length;i++){
+				a=$("#Copy").clone(true,true).show()
+	            a.find("h4").text(data[i][0])
+	            a.find("#CopyComment").text(data[i][1])
+	            $("#_template").append(a);
+	            a.insertAfter($("#_template"))
+            }
+        })
+
+
+</script>
+
+
 	</div>
 </div>
 

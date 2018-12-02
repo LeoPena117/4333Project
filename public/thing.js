@@ -1,9 +1,25 @@
 $(".loggedin").hide();
 $("#wrongPW").hide();
 $("#PWMM").hide();
+$("#pwError").hide();
+$("#usedUsername").hide();
+$("#Copy").hide()
+$("#emptyUsername").hide()
+$("#logout").hide()
+$("#EPW").hide();
 
 $("#loginbtn").on("click",function(){
 
+	 if($("#UName").val()==""){
+		$("#emptyUsername").show();
+		$("#EPW").hide();
+		$("#usedUsername").hide();
+	}else if($("#PW").val()==""){
+		$("#EPW").show();
+		$("#usedUsername").hide();
+		$("#emptyUsername").hide()
+	}
+	else{
 	username = $("#UName").val();
 	pw = $("#PW").val();
 	$.ajax({
@@ -26,7 +42,7 @@ $("#loginbtn").on("click",function(){
         	}
         }
         })
-		
+		}
 		return false;
 })
 
@@ -41,8 +57,26 @@ $("#signupbtn").on("click",function(){
 $("#signupconfirm").on("click",function(){
 	if($("#PW").val()!=$("#PWC").val()){
 		$("#PWMM").show();
+		$("#EPW").hide();
+		$("#usedUsername").hide();
+		$("#emptyUsername").hide()
+	}
+	else if($("#UName").val()==""){
+		$("#emptyUsername").show();
+		$("#EPW").hide();
+		$("#usedUsername").hide();
+		$("#PWMM").hide();
+	}
+	else if($("#PW").val()==""||$("#PWC").val()==""){
+		$("#EPW").show();
+		$("#usedUsername").hide();
+		$("#emptyUsername").hide()
+		$("#PWMM").hide();
 	}
 	else{
+	$("#EPW").hide();
+	$("#usedUsername").hide();
+	$("#emptyUsername").hide()
 	$("#PWMM").hide();
 	username = $("#UName").val();
 	pw = $("#PW").val();
@@ -56,7 +90,14 @@ $("#signupconfirm").on("click",function(){
         	username: username,
         	pw: pw,
         	state: state
-        }}).done(function(){ window.location.replace(baseurl+"/handlers/senators") })
+        }}).done(function(data){ 
+        	console.log(data)
+        	data=JSON.parse(data)
+        	if(data.success==true)
+        		window.location.replace(baseurl+"/handlers/senators") 
+        	else
+        		$("#usedUsername").show();
+        })
 
 
 	}
@@ -151,11 +192,53 @@ $.ajax({
 	})
 })
 
+$("#postBtn").click(function(){
+console.log("posted")
 
-$('em').on('click',function(){
+if ($("#Comment").val()==''){
+    $("#Comment").css('border-color', 'red');
+}
+else if($("#Comment").val()==''){
+    $("#Comment").css('border-color', 'red');
+}
+else{
+     $.ajax({
+        method : "POST",
+        url : baseurl 
+            + "/handlers/postcomment",
+            dataType : "text",
+        data:{
+            comment: $("#Comment").val(),
+            senator: $('SenatorName').attr('id') 
+        }}).done(function(data){
+            data=JSON.parse(data)
+            if(data.success == true){
+            $("#Comment").css('border-color', '');
+            a=$("#Copy").clone(true,true).show()
+            a.find("h4").text(data.user)
+            a.find("#CopyComment").text(data.comment)
+            $("#_template").append(a);
+            a.insertAfter($("#_template"))
+        }
+    })
+}
 
-$(".loggedin").hide();
-$("#wrongPW").hide();
-$("#form").show()
-return false;
+    return false;
+});
+
+$(".deleteUser").on('click',function(){
+ $.ajax({
+        method : "POST",
+        url : baseurl 
+            + "/handlers/deleteUser",
+            dataType : "text",
+        data:{
+            user: $(this).closest('tr').children('td.id').text()
+        }}).done(function(data){
+        	data=JSON.parse(data)
+            if(data.success == true){
+            	$(this).closest('tr').hide();
+    			$(this).closest('tr').remove();
+    		}
+		})
 })

@@ -6,7 +6,6 @@
 
 <div class="container">
 
-<form method="GET" action="">
 
 <table class="table">
 <tbody><tr>
@@ -19,9 +18,9 @@
 <tr>
 
 	<td>{{ User.Username }}</td>
-	<td><button id="deleteUser" type="submit" class="btn btn-primary">Delete User</button></td>
+	<td class="deleteUser"><button class="btn btn-primary" type="submit">Delete User</button></td>
 	<td> {{ User.state }} </td>
-	<td><ID>{{User.ID}}</ID></td>
+	<td class="id"><ID>{{User.ID}}</ID></td>
 </tr>
 {% endfor %}
 
@@ -29,7 +28,6 @@
 </table>
 
 
-</form>
 </div>
 
 {% endblock %}

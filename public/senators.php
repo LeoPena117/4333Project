@@ -167,6 +167,9 @@ $app->get('/handlers/senators',function($request,$response,$args){
 });
 
 $app->post('/handlers/signupconfirm', function ($request, $response, $args) {
+    $User = UsersQuery::create()->findOneByUsername($request->getParam("username"));
+
+if($User==null){
     $Usr = new Users();
     $hash = password_hash($request->getParam("pw"),PASSWORD_DEFAULT);
     $Usr->setUsername($request->getParam("username"));
@@ -176,8 +179,13 @@ $app->post('/handlers/signupconfirm', function ($request, $response, $args) {
     $_SESSION['loggedin'] = true;
     $_SESSION['username'] = $Usr->getUsername();
     $_SESSION['id'] = $Usr->getId();
-
-
+    $data=array("success"=>true);
+}
+else{
+    $data=array("success"=>false);
+}
+$this->view->render($response, 'signup.html');
+    return $response->withJson($data);
 
 });
 
@@ -243,6 +251,44 @@ $app->get('/handlers/Admin', function ($request, $response, $args) {
 
     $this->view->render($response, 'admin.html',["Users"=>$Users,"data"=>$data]);
     return $response;
+});
+
+$app->post('/handlers/deleteUser', function ($request, $response, $args) {
+    $User=UsersQuery::create()->findOneById($request->getParam("user"));
+    $User->delete();
+
+    $data=array("success"=>true);
+
+    $this->view->render($response, 'admin.html');
+    return $response->withJson($data);
+});
+
+$app->post('/handlers/postcomment', function ($request, $response, $args) {
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+        if($request->getParam("comment")!=""){
+            $C = new Comments();
+            $C->setUser($_SESSION['username']);
+            $C->setComment($request->getParam("comment"));
+            $C->setSenator($request->getParam("senator"));
+            $C->save();
+
+            $data = array('success' => true,'user'=> $_SESSION['username'],'comment'=>$request->getParam("comment"));
+            $this->view->render($response, 'Single.html');
+            return $response->withJson($data);
+        }
+    }
+});
+
+$app->get('/handlers/getall/{ID}', function ($request, $response, $args) {
+    $C = CommentsQuery::create()->findBySenator(intval($args['ID']));
+
+    $data=array();
+    for($i=0;$i<count($C);$i++){
+        array_push($data, array($C[$i]->getUser(),$C[$i]->getComment()));
+    }
+    
+    $this->view->render($response, 'Single.html');
+    return $response->withJson($data);
 });
 
 $app->run();
