@@ -246,11 +246,13 @@ $app->get('/handlers/logout', function ($request, $response, $args) {
 });
 
 $app->get('/handlers/Admin', function ($request, $response, $args) {
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     $Users=UsersQuery::create()->find();
             $data=$_SESSION;
 
     $this->view->render($response, 'admin.html',["Users"=>$Users,"data"=>$data]);
     return $response;
+}
 });
 
 $app->post('/handlers/deleteUser', function ($request, $response, $args) {
