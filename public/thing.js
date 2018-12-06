@@ -7,6 +7,8 @@ $("#Copy").hide()
 $("#emptyUsername").hide()
 $("#logout").hide()
 $("#EPW").hide();
+$("#noUser").hide();
+$(".pBox").hide()
 
 $("#loginbtn").on("click",function(){
 
@@ -31,7 +33,8 @@ $("#loginbtn").on("click",function(){
         	username: username,
         	pw: pw
         }}).done(function(data){
-        	console.log(data)
+        	if(data==false)
+			$("#noUser").show();
         	if(data!=null){
         	data=JSON.parse(data)
         	if(data.isuser==true){
@@ -242,3 +245,21 @@ $(".deleteUser").on('click',function(){
     		}
 		})
 })
+/*
+$(".changePW").on('click',function(){
+	$(this).closest(".pBox").show()
+$(".pBox").on('blur', function() {
+	 $.ajax({
+        method : "POST",
+        url : baseurl 
+            + "/handlers/changePW",
+            dataType : "text",
+        data:{
+            user: $(this).closest('tr').children('td.id').text(),
+            PW: $("#pBox").val()
+        }}).done(function(data){
+           	alert("Password successfully changed!")
+			$("#pBox").hide()
+		})
+    })
+})*/

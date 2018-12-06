@@ -39,7 +39,7 @@ $app->get('/handlers/login', function ($request, $response, $args) {
 $app->post('/handlers/login', function ($request, $response, $args) {
     $User = UsersQuery::create()->findOneByUsername($request->getParam("username"));
     if($User == null){
-        return "User does not exist";
+        return false;
     }
     else{
         $PW = $request->getParam("pw");
@@ -99,13 +99,14 @@ $app->get('/sort/Name', function($request, $response, $args) {
     $Rep = RepublicansQuery::create()->groupByName();
     $Ind = IndependentsQuery::create()->groupByName();
     $Dem = DemocratsQuery::create()->groupByName();
-    
+    $data=$_SESSION;
 
     $this->view->render($response, 'List.html', [
         "Senators" => $Senators,
         "Dem"=> $Dem,
         "Rep"=> $Rep,
-        "Ind"=> $Ind
+        "Ind"=> $Ind,
+        "data" => $data
     ]);
 
     return $response;
@@ -117,13 +118,14 @@ $app->get('/sort/Party', function($request, $response, $args) {
     $Rep = RepublicansQuery::create()->groupByName();
     $Ind = IndependentsQuery::create()->groupByName();
     $Dem = DemocratsQuery::create()->groupByName();
-    
+    $data=$_SESSION;
 
     $this->view->render($response, 'List.html', [
         "Senators" => $Senators,
         "Dem"=> $Dem,
         "Rep"=> $Rep,
-        "Ind"=> $Ind
+        "Ind"=> $Ind,
+        "data" => $data
     ]);
 
     return $response;
