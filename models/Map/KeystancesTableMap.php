@@ -2,13 +2,14 @@
 
 namespace Map;
 
-use \Participation;
-use \ParticipationQuery;
+use \Keystances;
+use \KeystancesQuery;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\InstancePoolTrait;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\DataFetcher\DataFetcherInterface;
+use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\RelationMap;
 use Propel\Runtime\Map\TableMap;
@@ -16,7 +17,7 @@ use Propel\Runtime\Map\TableMapTrait;
 
 
 /**
- * This class defines the structure of the 'participation' table.
+ * This class defines the structure of the 'keystances' table.
  *
  *
  *
@@ -26,7 +27,7 @@ use Propel\Runtime\Map\TableMapTrait;
  * (i.e. if it's a text column type).
  *
  */
-class ParticipationTableMap extends TableMap
+class KeystancesTableMap extends TableMap
 {
     use InstancePoolTrait;
     use TableMapTrait;
@@ -34,7 +35,7 @@ class ParticipationTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = '.Map.ParticipationTableMap';
+    const CLASS_NAME = '.Map.KeystancesTableMap';
 
     /**
      * The default database name for this class
@@ -44,22 +45,22 @@ class ParticipationTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = 'participation';
+    const TABLE_NAME = 'keystances';
 
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Participation';
+    const OM_CLASS = '\\Keystances';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'Participation';
+    const CLASS_DEFAULT = 'Keystances';
 
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 3;
+    const NUM_COLUMNS = 7;
 
     /**
      * The number of lazy-loaded columns
@@ -69,22 +70,42 @@ class ParticipationTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 3;
+    const NUM_HYDRATE_COLUMNS = 7;
 
     /**
      * the column name for the ID field
      */
-    const COL_ID = 'participation.ID';
+    const COL_ID = 'keystances.ID';
 
     /**
-     * the column name for the VotesCast field
+     * the column name for the HealthCare field
      */
-    const COL_VOTESCAST = 'participation.VotesCast';
+    const COL_HEALTHCARE = 'keystances.HealthCare';
 
     /**
-     * the column name for the Commitees field
+     * the column name for the GunControl field
      */
-    const COL_COMMITEES = 'participation.Commitees';
+    const COL_GUNCONTROL = 'keystances.GunControl';
+
+    /**
+     * the column name for the WomensRights field
+     */
+    const COL_WOMENSRIGHTS = 'keystances.WomensRights';
+
+    /**
+     * the column name for the MilitarySpending field
+     */
+    const COL_MILITARYSPENDING = 'keystances.MilitarySpending';
+
+    /**
+     * the column name for the ForeignPolicy field
+     */
+    const COL_FOREIGNPOLICY = 'keystances.ForeignPolicy';
+
+    /**
+     * the column name for the Immigration field
+     */
+    const COL_IMMIGRATION = 'keystances.Immigration';
 
     /**
      * The default string format for model objects of the related table
@@ -98,11 +119,11 @@ class ParticipationTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Votescast', 'Commitees', ),
-        self::TYPE_CAMELNAME     => array('id', 'votescast', 'commitees', ),
-        self::TYPE_COLNAME       => array(ParticipationTableMap::COL_ID, ParticipationTableMap::COL_VOTESCAST, ParticipationTableMap::COL_COMMITEES, ),
-        self::TYPE_FIELDNAME     => array('ID', 'VotesCast', 'Commitees', ),
-        self::TYPE_NUM           => array(0, 1, 2, )
+        self::TYPE_PHPNAME       => array('Id', 'Healthcare', 'Guncontrol', 'Womensrights', 'Militaryspending', 'Foreignpolicy', 'Immigration', ),
+        self::TYPE_CAMELNAME     => array('id', 'healthcare', 'guncontrol', 'womensrights', 'militaryspending', 'foreignpolicy', 'immigration', ),
+        self::TYPE_COLNAME       => array(KeystancesTableMap::COL_ID, KeystancesTableMap::COL_HEALTHCARE, KeystancesTableMap::COL_GUNCONTROL, KeystancesTableMap::COL_WOMENSRIGHTS, KeystancesTableMap::COL_MILITARYSPENDING, KeystancesTableMap::COL_FOREIGNPOLICY, KeystancesTableMap::COL_IMMIGRATION, ),
+        self::TYPE_FIELDNAME     => array('ID', 'HealthCare', 'GunControl', 'WomensRights', 'MilitarySpending', 'ForeignPolicy', 'Immigration', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
@@ -112,11 +133,11 @@ class ParticipationTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Votescast' => 1, 'Commitees' => 2, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'votescast' => 1, 'commitees' => 2, ),
-        self::TYPE_COLNAME       => array(ParticipationTableMap::COL_ID => 0, ParticipationTableMap::COL_VOTESCAST => 1, ParticipationTableMap::COL_COMMITEES => 2, ),
-        self::TYPE_FIELDNAME     => array('ID' => 0, 'VotesCast' => 1, 'Commitees' => 2, ),
-        self::TYPE_NUM           => array(0, 1, 2, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Healthcare' => 1, 'Guncontrol' => 2, 'Womensrights' => 3, 'Militaryspending' => 4, 'Foreignpolicy' => 5, 'Immigration' => 6, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'healthcare' => 1, 'guncontrol' => 2, 'womensrights' => 3, 'militaryspending' => 4, 'foreignpolicy' => 5, 'immigration' => 6, ),
+        self::TYPE_COLNAME       => array(KeystancesTableMap::COL_ID => 0, KeystancesTableMap::COL_HEALTHCARE => 1, KeystancesTableMap::COL_GUNCONTROL => 2, KeystancesTableMap::COL_WOMENSRIGHTS => 3, KeystancesTableMap::COL_MILITARYSPENDING => 4, KeystancesTableMap::COL_FOREIGNPOLICY => 5, KeystancesTableMap::COL_IMMIGRATION => 6, ),
+        self::TYPE_FIELDNAME     => array('ID' => 0, 'HealthCare' => 1, 'GunControl' => 2, 'WomensRights' => 3, 'MilitarySpending' => 4, 'ForeignPolicy' => 5, 'Immigration' => 6, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
@@ -129,16 +150,20 @@ class ParticipationTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('participation');
-        $this->setPhpName('Participation');
+        $this->setName('keystances');
+        $this->setPhpName('Keystances');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Participation');
+        $this->setClassName('\\Keystances');
         $this->setPackage('');
-        $this->setUseIdGenerator(true);
+        $this->setUseIdGenerator(false);
         // columns
-        $this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
-        $this->addColumn('VotesCast', 'Votescast', 'INTEGER', true, null, null);
-        $this->addColumn('Commitees', 'Commitees', 'INTEGER', true, null, null);
+        $this->addColumn('ID', 'Id', 'INTEGER', true, 5, null);
+        $this->addColumn('HealthCare', 'Healthcare', 'VARCHAR', true, 10000, null);
+        $this->addColumn('GunControl', 'Guncontrol', 'VARCHAR', true, 10000, null);
+        $this->addColumn('WomensRights', 'Womensrights', 'VARCHAR', true, 10000, null);
+        $this->addColumn('MilitarySpending', 'Militaryspending', 'VARCHAR', true, 10000, null);
+        $this->addColumn('ForeignPolicy', 'Foreignpolicy', 'VARCHAR', true, 10000, null);
+        $this->addColumn('Immigration', 'Immigration', 'VARCHAR', true, 10000, null);
     } // initialize()
 
     /**
@@ -163,12 +188,7 @@ class ParticipationTableMap extends TableMap
      */
     public static function getPrimaryKeyHashFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        // If the PK cannot be derived from the row, return NULL.
-        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] === null) {
-            return null;
-        }
-
-        return null === $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] || is_scalar($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)]) || is_callable([$row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)], '__toString']) ? (string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] : $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+        return null;
     }
 
     /**
@@ -185,11 +205,7 @@ class ParticipationTableMap extends TableMap
      */
     public static function getPrimaryKeyFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        return (int) $row[
-            $indexType == TableMap::TYPE_NUM
-                ? 0 + $offset
-                : self::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)
-        ];
+        return '';
     }
 
     /**
@@ -205,7 +221,7 @@ class ParticipationTableMap extends TableMap
      */
     public static function getOMClass($withPrefix = true)
     {
-        return $withPrefix ? ParticipationTableMap::CLASS_DEFAULT : ParticipationTableMap::OM_CLASS;
+        return $withPrefix ? KeystancesTableMap::CLASS_DEFAULT : KeystancesTableMap::OM_CLASS;
     }
 
     /**
@@ -219,22 +235,22 @@ class ParticipationTableMap extends TableMap
      *
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
-     * @return array           (Participation object, last column rank)
+     * @return array           (Keystances object, last column rank)
      */
     public static function populateObject($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        $key = ParticipationTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
-        if (null !== ($obj = ParticipationTableMap::getInstanceFromPool($key))) {
+        $key = KeystancesTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
+        if (null !== ($obj = KeystancesTableMap::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $offset, true); // rehydrate
-            $col = $offset + ParticipationTableMap::NUM_HYDRATE_COLUMNS;
+            $col = $offset + KeystancesTableMap::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = ParticipationTableMap::OM_CLASS;
-            /** @var Participation $obj */
+            $cls = KeystancesTableMap::OM_CLASS;
+            /** @var Keystances $obj */
             $obj = new $cls();
             $col = $obj->hydrate($row, $offset, false, $indexType);
-            ParticipationTableMap::addInstanceToPool($obj, $key);
+            KeystancesTableMap::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -257,18 +273,18 @@ class ParticipationTableMap extends TableMap
         $cls = static::getOMClass(false);
         // populate the object(s)
         while ($row = $dataFetcher->fetch()) {
-            $key = ParticipationTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
-            if (null !== ($obj = ParticipationTableMap::getInstanceFromPool($key))) {
+            $key = KeystancesTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
+            if (null !== ($obj = KeystancesTableMap::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
                 $results[] = $obj;
             } else {
-                /** @var Participation $obj */
+                /** @var Keystances $obj */
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                ParticipationTableMap::addInstanceToPool($obj, $key);
+                KeystancesTableMap::addInstanceToPool($obj, $key);
             } // if key exists
         }
 
@@ -289,13 +305,21 @@ class ParticipationTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(ParticipationTableMap::COL_ID);
-            $criteria->addSelectColumn(ParticipationTableMap::COL_VOTESCAST);
-            $criteria->addSelectColumn(ParticipationTableMap::COL_COMMITEES);
+            $criteria->addSelectColumn(KeystancesTableMap::COL_ID);
+            $criteria->addSelectColumn(KeystancesTableMap::COL_HEALTHCARE);
+            $criteria->addSelectColumn(KeystancesTableMap::COL_GUNCONTROL);
+            $criteria->addSelectColumn(KeystancesTableMap::COL_WOMENSRIGHTS);
+            $criteria->addSelectColumn(KeystancesTableMap::COL_MILITARYSPENDING);
+            $criteria->addSelectColumn(KeystancesTableMap::COL_FOREIGNPOLICY);
+            $criteria->addSelectColumn(KeystancesTableMap::COL_IMMIGRATION);
         } else {
             $criteria->addSelectColumn($alias . '.ID');
-            $criteria->addSelectColumn($alias . '.VotesCast');
-            $criteria->addSelectColumn($alias . '.Commitees');
+            $criteria->addSelectColumn($alias . '.HealthCare');
+            $criteria->addSelectColumn($alias . '.GunControl');
+            $criteria->addSelectColumn($alias . '.WomensRights');
+            $criteria->addSelectColumn($alias . '.MilitarySpending');
+            $criteria->addSelectColumn($alias . '.ForeignPolicy');
+            $criteria->addSelectColumn($alias . '.Immigration');
         }
     }
 
@@ -308,7 +332,7 @@ class ParticipationTableMap extends TableMap
      */
     public static function getTableMap()
     {
-        return Propel::getServiceContainer()->getDatabaseMap(ParticipationTableMap::DATABASE_NAME)->getTable(ParticipationTableMap::TABLE_NAME);
+        return Propel::getServiceContainer()->getDatabaseMap(KeystancesTableMap::DATABASE_NAME)->getTable(KeystancesTableMap::TABLE_NAME);
     }
 
     /**
@@ -316,16 +340,16 @@ class ParticipationTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-        $dbMap = Propel::getServiceContainer()->getDatabaseMap(ParticipationTableMap::DATABASE_NAME);
-        if (!$dbMap->hasTable(ParticipationTableMap::TABLE_NAME)) {
-            $dbMap->addTableObject(new ParticipationTableMap());
+        $dbMap = Propel::getServiceContainer()->getDatabaseMap(KeystancesTableMap::DATABASE_NAME);
+        if (!$dbMap->hasTable(KeystancesTableMap::TABLE_NAME)) {
+            $dbMap->addTableObject(new KeystancesTableMap());
         }
     }
 
     /**
-     * Performs a DELETE on the database, given a Participation or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a Keystances or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or Participation object or primary key or array of primary keys
+     * @param mixed               $values Criteria or Keystances object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param  ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -336,27 +360,26 @@ class ParticipationTableMap extends TableMap
      public static function doDelete($values, ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(ParticipationTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(KeystancesTableMap::DATABASE_NAME);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \Participation) { // it's a model object
-            // create criteria based on pk values
-            $criteria = $values->buildPkeyCriteria();
+        } elseif ($values instanceof \Keystances) { // it's a model object
+            // create criteria based on pk value
+            $criteria = $values->buildCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(ParticipationTableMap::DATABASE_NAME);
-            $criteria->add(ParticipationTableMap::COL_ID, (array) $values, Criteria::IN);
+            throw new LogicException('The Keystances object has no primary key');
         }
 
-        $query = ParticipationQuery::create()->mergeWith($criteria);
+        $query = KeystancesQuery::create()->mergeWith($criteria);
 
         if ($values instanceof Criteria) {
-            ParticipationTableMap::clearInstancePool();
+            KeystancesTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
             foreach ((array) $values as $singleval) {
-                ParticipationTableMap::removeInstanceFromPool($singleval);
+                KeystancesTableMap::removeInstanceFromPool($singleval);
             }
         }
 
@@ -364,20 +387,20 @@ class ParticipationTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the participation table.
+     * Deletes all rows from the keystances table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
      */
     public static function doDeleteAll(ConnectionInterface $con = null)
     {
-        return ParticipationQuery::create()->doDeleteAll($con);
+        return KeystancesQuery::create()->doDeleteAll($con);
     }
 
     /**
-     * Performs an INSERT on the database, given a Participation or Criteria object.
+     * Performs an INSERT on the database, given a Keystances or Criteria object.
      *
-     * @param mixed               $criteria Criteria or Participation object containing data that is used to create the INSERT statement.
+     * @param mixed               $criteria Criteria or Keystances object containing data that is used to create the INSERT statement.
      * @param ConnectionInterface $con the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -386,22 +409,18 @@ class ParticipationTableMap extends TableMap
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(ParticipationTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(KeystancesTableMap::DATABASE_NAME);
         }
 
         if ($criteria instanceof Criteria) {
             $criteria = clone $criteria; // rename for clarity
         } else {
-            $criteria = $criteria->buildCriteria(); // build Criteria from Participation object
-        }
-
-        if ($criteria->containsKey(ParticipationTableMap::COL_ID) && $criteria->keyContainsValue(ParticipationTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.ParticipationTableMap::COL_ID.')');
+            $criteria = $criteria->buildCriteria(); // build Criteria from Keystances object
         }
 
 
         // Set the correct dbName
-        $query = ParticipationQuery::create()->mergeWith($criteria);
+        $query = KeystancesQuery::create()->mergeWith($criteria);
 
         // use transaction because $criteria could contain info
         // for more than one table (I guess, conceivably)
@@ -410,7 +429,7 @@ class ParticipationTableMap extends TableMap
         });
     }
 
-} // ParticipationTableMap
+} // KeystancesTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-ParticipationTableMap::buildTableMap();
+KeystancesTableMap::buildTableMap();

@@ -17,6 +17,12 @@
 
 			<p><label>Party:</label> {{ Senator.Party }}</p>
 			<p><label>State:</label> {{ Party.State }}</p>
+			<p><label>Up For Election:</label> {{ UFE }}</p>
+
+			{% if (UFE==2018) %}
+				<p><b><label>Opponent:</label> {{ Opponent.Name }}</b></p>
+				<p><b><label>Party:</label> {{ Opponent.Party }}</b></p>
+			{% endif %}
 
 			<h3>Info</h3>
 
@@ -30,21 +36,19 @@
 			<h3>Voting Record</h3>
 
 			<ul>
-				<li>Votes Cast: {{ Bio.Born }}</li>
-				<li>Sessions Attended: {{ Bio.Age }}</li>
-				<li>Commitees: {{ Bio.Spouse }}</li>
-				<li>Year Elected: {{ Bio.Education }}</li>
+				<li>Votes Cast: {{ Participation.VotesCast }}</li>
+				<li>Commitees: {{ Participation.Commitees }}</li>
 			</ul>
 
 			<h3>Key Stances</h3>
 
 			<ul>
-				<li>HealthCare: {{ Bio.Born }}</li>
-				<li>Gun Control: {{ Bio.Age }}</li>
-				<li>Women's Rights: {{ Bio.Spouse }}</li>
-				<li>Military Spending: {{ Bio.Education }}</li>
-				<li>Foreign Policy: {{ Bio.Education }}</li>
-				<li>Immigration: {{ Bio.Education }}</li>
+				<li>HealthCare: {{ Stance.Healthcare }}</li>
+				<li>Gun Control: {{ Stance.GunControl }}</li>
+				<li>Women's Rights: {{ Stance.WomensRights }}</li>
+				<li>Military Spending: {{ Stance.MilitarySpending }}</li>
+				<li>Foreign Policy: {{ Stance.ForeignPolicy }}</li>
+				<li>Immigration: {{ Stance.Immigration }}</li>
 			</ul>
 
 		</div>
@@ -72,6 +76,10 @@
 		<div class="row">
 			<div class="col-md-11">
 				<h4>etomai</h4>
+				{% if (data.admin) %}
+				<button class="deleteComment">X</button>
+				<CID id="CID"></CID>
+				{% endif %}
 			</div>
 			<div class="col-md-1">
 			</div>
@@ -90,11 +98,13 @@
             + "/handlers/getall/"+$('SenatorName').attr('id'),
             dataType : "text"
         }).done(function(data){
+        	console.log(data)
         	data=JSON.parse(data)
             for(i=0;i<data.length;i++){
 				a=$("#Copy").clone(true,true).show()
 	            a.find("h4").text(data[i][0])
 	            a.find("#CopyComment").text(data[i][1])
+	            a.find("#CID").text(data[i][2])
 	            $("#_template").append(a);
 	            a.insertAfter($("#_template"))
             }

@@ -82,21 +82,20 @@ CREATE TABLE `independents`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- key stances
+-- keystances
 -- ---------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `key stances`;
+DROP TABLE IF EXISTS `keystances`;
 
-CREATE TABLE `key stances`
+CREATE TABLE `keystances`
 (
-    `ID` INTEGER(5) NOT NULL AUTO_INCREMENT,
+    `ID` INTEGER(5) NOT NULL,
     `HealthCare` VARCHAR(10000) NOT NULL,
     `GunControl` VARCHAR(10000) NOT NULL,
     `WomensRights` VARCHAR(10000) NOT NULL,
     `MilitarySpending` VARCHAR(10000) NOT NULL,
     `ForeignPolicy` VARCHAR(10000) NOT NULL,
-    `Immigration` VARCHAR(10000) NOT NULL,
-    PRIMARY KEY (`ID`)
+    `Immigration` VARCHAR(10000) NOT NULL
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -139,8 +138,7 @@ DROP TABLE IF EXISTS `participation`;
 CREATE TABLE `participation`
 (
     `ID` INTEGER NOT NULL AUTO_INCREMENT,
-    `Votes Cast` INTEGER NOT NULL,
-    `Sessions Attended` INTEGER NOT NULL,
+    `VotesCast` INTEGER NOT NULL,
     `Commitees` INTEGER NOT NULL,
     PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB;

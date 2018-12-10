@@ -67,18 +67,11 @@ abstract class Participation implements ActiveRecordInterface
     protected $id;
 
     /**
-     * The value for the votes cast field.
+     * The value for the votescast field.
      *
      * @var        int
      */
-    protected $votes cast;
-
-    /**
-     * The value for the sessions attended field.
-     *
-     * @var        int
-     */
-    protected $sessions attended;
+    protected $votescast;
 
     /**
      * The value for the commitees field.
@@ -331,23 +324,13 @@ abstract class Participation implements ActiveRecordInterface
     }
 
     /**
-     * Get the [votes cast] column value.
+     * Get the [votescast] column value.
      *
      * @return int
      */
-    public function getVotes cast()
+    public function getVotescast()
     {
-        return $this->votes cast;
-    }
-
-    /**
-     * Get the [sessions attended] column value.
-     *
-     * @return int
-     */
-    public function getSessions attended()
-    {
-        return $this->sessions attended;
+        return $this->votescast;
     }
 
     /**
@@ -381,44 +364,24 @@ abstract class Participation implements ActiveRecordInterface
     } // setId()
 
     /**
-     * Set the value of [votes cast] column.
+     * Set the value of [votescast] column.
      *
      * @param int $v new value
      * @return $this|\Participation The current object (for fluent API support)
      */
-    public function setVotes cast($v)
+    public function setVotescast($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->votes cast !== $v) {
-            $this->votes cast = $v;
-            $this->modifiedColumns[ParticipationTableMap::COL_VOTES CAST] = true;
+        if ($this->votescast !== $v) {
+            $this->votescast = $v;
+            $this->modifiedColumns[ParticipationTableMap::COL_VOTESCAST] = true;
         }
 
         return $this;
-    } // setVotes cast()
-
-    /**
-     * Set the value of [sessions attended] column.
-     *
-     * @param int $v new value
-     * @return $this|\Participation The current object (for fluent API support)
-     */
-    public function setSessions attended($v)
-    {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->sessions attended !== $v) {
-            $this->sessions attended = $v;
-            $this->modifiedColumns[ParticipationTableMap::COL_SESSIONS ATTENDED] = true;
-        }
-
-        return $this;
-    } // setSessions attended()
+    } // setVotescast()
 
     /**
      * Set the value of [commitees] column.
@@ -479,13 +442,10 @@ abstract class Participation implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : ParticipationTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : ParticipationTableMap::translateFieldName('Votes cast', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->votes cast = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : ParticipationTableMap::translateFieldName('Votescast', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->votescast = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : ParticipationTableMap::translateFieldName('Sessions attended', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->sessions attended = (null !== $col) ? (int) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : ParticipationTableMap::translateFieldName('Commitees', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : ParticipationTableMap::translateFieldName('Commitees', TableMap::TYPE_PHPNAME, $indexType)];
             $this->commitees = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
@@ -495,7 +455,7 @@ abstract class Participation implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 4; // 4 = ParticipationTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 3; // 3 = ParticipationTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Participation'), 0, $e);
@@ -699,11 +659,8 @@ abstract class Participation implements ActiveRecordInterface
         if ($this->isColumnModified(ParticipationTableMap::COL_ID)) {
             $modifiedColumns[':p' . $index++]  = 'ID';
         }
-        if ($this->isColumnModified(ParticipationTableMap::COL_VOTES CAST)) {
-            $modifiedColumns[':p' . $index++]  = 'Votes Cast';
-        }
-        if ($this->isColumnModified(ParticipationTableMap::COL_SESSIONS ATTENDED)) {
-            $modifiedColumns[':p' . $index++]  = 'Sessions Attended';
+        if ($this->isColumnModified(ParticipationTableMap::COL_VOTESCAST)) {
+            $modifiedColumns[':p' . $index++]  = 'VotesCast';
         }
         if ($this->isColumnModified(ParticipationTableMap::COL_COMMITEES)) {
             $modifiedColumns[':p' . $index++]  = 'Commitees';
@@ -722,11 +679,8 @@ abstract class Participation implements ActiveRecordInterface
                     case 'ID':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
-                    case 'Votes Cast':
-                        $stmt->bindValue($identifier, $this->votes cast, PDO::PARAM_INT);
-                        break;
-                    case 'Sessions Attended':
-                        $stmt->bindValue($identifier, $this->sessions attended, PDO::PARAM_INT);
+                    case 'VotesCast':
+                        $stmt->bindValue($identifier, $this->votescast, PDO::PARAM_INT);
                         break;
                     case 'Commitees':
                         $stmt->bindValue($identifier, $this->commitees, PDO::PARAM_INT);
@@ -797,12 +751,9 @@ abstract class Participation implements ActiveRecordInterface
                 return $this->getId();
                 break;
             case 1:
-                return $this->getVotes cast();
+                return $this->getVotescast();
                 break;
             case 2:
-                return $this->getSessions attended();
-                break;
-            case 3:
                 return $this->getCommitees();
                 break;
             default:
@@ -835,9 +786,8 @@ abstract class Participation implements ActiveRecordInterface
         $keys = ParticipationTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
-            $keys[1] => $this->getVotes cast(),
-            $keys[2] => $this->getSessions attended(),
-            $keys[3] => $this->getCommitees(),
+            $keys[1] => $this->getVotescast(),
+            $keys[2] => $this->getCommitees(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -881,12 +831,9 @@ abstract class Participation implements ActiveRecordInterface
                 $this->setId($value);
                 break;
             case 1:
-                $this->setVotes cast($value);
+                $this->setVotescast($value);
                 break;
             case 2:
-                $this->setSessions attended($value);
-                break;
-            case 3:
                 $this->setCommitees($value);
                 break;
         } // switch()
@@ -919,13 +866,10 @@ abstract class Participation implements ActiveRecordInterface
             $this->setId($arr[$keys[0]]);
         }
         if (array_key_exists($keys[1], $arr)) {
-            $this->setVotes cast($arr[$keys[1]]);
+            $this->setVotescast($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setSessions attended($arr[$keys[2]]);
-        }
-        if (array_key_exists($keys[3], $arr)) {
-            $this->setCommitees($arr[$keys[3]]);
+            $this->setCommitees($arr[$keys[2]]);
         }
     }
 
@@ -971,11 +915,8 @@ abstract class Participation implements ActiveRecordInterface
         if ($this->isColumnModified(ParticipationTableMap::COL_ID)) {
             $criteria->add(ParticipationTableMap::COL_ID, $this->id);
         }
-        if ($this->isColumnModified(ParticipationTableMap::COL_VOTES CAST)) {
-            $criteria->add(ParticipationTableMap::COL_VOTES CAST, $this->votes cast);
-        }
-        if ($this->isColumnModified(ParticipationTableMap::COL_SESSIONS ATTENDED)) {
-            $criteria->add(ParticipationTableMap::COL_SESSIONS ATTENDED, $this->sessions attended);
+        if ($this->isColumnModified(ParticipationTableMap::COL_VOTESCAST)) {
+            $criteria->add(ParticipationTableMap::COL_VOTESCAST, $this->votescast);
         }
         if ($this->isColumnModified(ParticipationTableMap::COL_COMMITEES)) {
             $criteria->add(ParticipationTableMap::COL_COMMITEES, $this->commitees);
@@ -1066,8 +1007,7 @@ abstract class Participation implements ActiveRecordInterface
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setVotes cast($this->getVotes cast());
-        $copyObj->setSessions attended($this->getSessions attended());
+        $copyObj->setVotescast($this->getVotescast());
         $copyObj->setCommitees($this->getCommitees());
         if ($makeNew) {
             $copyObj->setNew(true);
@@ -1105,8 +1045,7 @@ abstract class Participation implements ActiveRecordInterface
     public function clear()
     {
         $this->id = null;
-        $this->votes cast = null;
-        $this->sessions attended = null;
+        $this->votescast = null;
         $this->commitees = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();

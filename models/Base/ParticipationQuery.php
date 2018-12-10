@@ -20,13 +20,11 @@ use Propel\Runtime\Exception\PropelException;
  *
  *
  * @method     ChildParticipationQuery orderById($order = Criteria::ASC) Order by the ID column
- * @method     ChildParticipationQuery orderByVotes cast($order = Criteria::ASC) Order by the Votes Cast column
- * @method     ChildParticipationQuery orderBySessions attended($order = Criteria::ASC) Order by the Sessions Attended column
+ * @method     ChildParticipationQuery orderByVotescast($order = Criteria::ASC) Order by the VotesCast column
  * @method     ChildParticipationQuery orderByCommitees($order = Criteria::ASC) Order by the Commitees column
  *
  * @method     ChildParticipationQuery groupById() Group by the ID column
- * @method     ChildParticipationQuery groupByVotes cast() Group by the Votes Cast column
- * @method     ChildParticipationQuery groupBySessions attended() Group by the Sessions Attended column
+ * @method     ChildParticipationQuery groupByVotescast() Group by the VotesCast column
  * @method     ChildParticipationQuery groupByCommitees() Group by the Commitees column
  *
  * @method     ChildParticipationQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
@@ -41,22 +39,19 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildParticipation findOneOrCreate(ConnectionInterface $con = null) Return the first ChildParticipation matching the query, or a new ChildParticipation object populated from the query conditions when no match is found
  *
  * @method     ChildParticipation findOneById(int $ID) Return the first ChildParticipation filtered by the ID column
- * @method     ChildParticipation findOneByVotes cast(int $Votes Cast) Return the first ChildParticipation filtered by the Votes Cast column
- * @method     ChildParticipation findOneBySessions attended(int $Sessions Attended) Return the first ChildParticipation filtered by the Sessions Attended column
+ * @method     ChildParticipation findOneByVotescast(int $VotesCast) Return the first ChildParticipation filtered by the VotesCast column
  * @method     ChildParticipation findOneByCommitees(int $Commitees) Return the first ChildParticipation filtered by the Commitees column *
 
  * @method     ChildParticipation requirePk($key, ConnectionInterface $con = null) Return the ChildParticipation by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildParticipation requireOne(ConnectionInterface $con = null) Return the first ChildParticipation matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildParticipation requireOneById(int $ID) Return the first ChildParticipation filtered by the ID column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildParticipation requireOneByVotes cast(int $Votes Cast) Return the first ChildParticipation filtered by the Votes Cast column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildParticipation requireOneBySessions attended(int $Sessions Attended) Return the first ChildParticipation filtered by the Sessions Attended column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildParticipation requireOneByVotescast(int $VotesCast) Return the first ChildParticipation filtered by the VotesCast column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildParticipation requireOneByCommitees(int $Commitees) Return the first ChildParticipation filtered by the Commitees column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildParticipation[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildParticipation objects based on current ModelCriteria
  * @method     ChildParticipation[]|ObjectCollection findById(int $ID) Return ChildParticipation objects filtered by the ID column
- * @method     ChildParticipation[]|ObjectCollection findByVotes cast(int $Votes Cast) Return ChildParticipation objects filtered by the Votes Cast column
- * @method     ChildParticipation[]|ObjectCollection findBySessions attended(int $Sessions Attended) Return ChildParticipation objects filtered by the Sessions Attended column
+ * @method     ChildParticipation[]|ObjectCollection findByVotescast(int $VotesCast) Return ChildParticipation objects filtered by the VotesCast column
  * @method     ChildParticipation[]|ObjectCollection findByCommitees(int $Commitees) Return ChildParticipation objects filtered by the Commitees column
  * @method     ChildParticipation[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
@@ -156,7 +151,7 @@ abstract class ParticipationQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT ID, Votes Cast, Sessions Attended, Commitees FROM participation WHERE ID = :p0';
+        $sql = 'SELECT ID, VotesCast, Commitees FROM participation WHERE ID = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -288,16 +283,16 @@ abstract class ParticipationQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the Votes Cast column
+     * Filter the query on the VotesCast column
      *
      * Example usage:
      * <code>
-     * $query->filterByVotes cast(1234); // WHERE Votes Cast = 1234
-     * $query->filterByVotes cast(array(12, 34)); // WHERE Votes Cast IN (12, 34)
-     * $query->filterByVotes cast(array('min' => 12)); // WHERE Votes Cast > 12
+     * $query->filterByVotescast(1234); // WHERE VotesCast = 1234
+     * $query->filterByVotescast(array(12, 34)); // WHERE VotesCast IN (12, 34)
+     * $query->filterByVotescast(array('min' => 12)); // WHERE VotesCast > 12
      * </code>
      *
-     * @param     mixed $votes cast The value to use as filter.
+     * @param     mixed $votescast The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -305,16 +300,16 @@ abstract class ParticipationQuery extends ModelCriteria
      *
      * @return $this|ChildParticipationQuery The current query, for fluid interface
      */
-    public function filterByVotes cast($votes cast = null, $comparison = null)
+    public function filterByVotescast($votescast = null, $comparison = null)
     {
-        if (is_array($votes cast)) {
+        if (is_array($votescast)) {
             $useMinMax = false;
-            if (isset($votes cast['min'])) {
-                $this->addUsingAlias(ParticipationTableMap::COL_VOTES CAST, $votes cast['min'], Criteria::GREATER_EQUAL);
+            if (isset($votescast['min'])) {
+                $this->addUsingAlias(ParticipationTableMap::COL_VOTESCAST, $votescast['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($votes cast['max'])) {
-                $this->addUsingAlias(ParticipationTableMap::COL_VOTES CAST, $votes cast['max'], Criteria::LESS_EQUAL);
+            if (isset($votescast['max'])) {
+                $this->addUsingAlias(ParticipationTableMap::COL_VOTESCAST, $votescast['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -325,48 +320,7 @@ abstract class ParticipationQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(ParticipationTableMap::COL_VOTES CAST, $votes cast, $comparison);
-    }
-
-    /**
-     * Filter the query on the Sessions Attended column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterBySessions attended(1234); // WHERE Sessions Attended = 1234
-     * $query->filterBySessions attended(array(12, 34)); // WHERE Sessions Attended IN (12, 34)
-     * $query->filterBySessions attended(array('min' => 12)); // WHERE Sessions Attended > 12
-     * </code>
-     *
-     * @param     mixed $sessions attended The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildParticipationQuery The current query, for fluid interface
-     */
-    public function filterBySessions attended($sessions attended = null, $comparison = null)
-    {
-        if (is_array($sessions attended)) {
-            $useMinMax = false;
-            if (isset($sessions attended['min'])) {
-                $this->addUsingAlias(ParticipationTableMap::COL_SESSIONS ATTENDED, $sessions attended['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($sessions attended['max'])) {
-                $this->addUsingAlias(ParticipationTableMap::COL_SESSIONS ATTENDED, $sessions attended['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ParticipationTableMap::COL_SESSIONS ATTENDED, $sessions attended, $comparison);
+        return $this->addUsingAlias(ParticipationTableMap::COL_VOTESCAST, $votescast, $comparison);
     }
 
     /**

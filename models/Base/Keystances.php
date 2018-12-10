@@ -2,11 +2,10 @@
 
 namespace Base;
 
-use \Key stances as ChildKey stances;
-use \Key stancesQuery as ChildKey stancesQuery;
+use \KeystancesQuery as ChildKeystancesQuery;
 use \Exception;
 use \PDO;
-use Map\Key stancesTableMap;
+use Map\KeystancesTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
@@ -20,18 +19,18 @@ use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 
 /**
- * Base class that represents a row from the 'key stances' table.
+ * Base class that represents a row from the 'keystances' table.
  *
  *
  *
  * @package    propel.generator..Base
  */
-abstract class Key stances implements ActiveRecordInterface
+abstract class Keystances implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Map\\Key stancesTableMap';
+    const TABLE_MAP = '\\Map\\KeystancesTableMap';
 
 
     /**
@@ -118,7 +117,7 @@ abstract class Key stances implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * Initializes internal state of Base\Key stances object.
+     * Initializes internal state of Base\Keystances object.
      */
     public function __construct()
     {
@@ -213,9 +212,9 @@ abstract class Key stances implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>Key stances</code> instance.  If
-     * <code>obj</code> is an instance of <code>Key stances</code>, delegates to
-     * <code>equals(Key stances)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>Keystances</code> instance.  If
+     * <code>obj</code> is an instance of <code>Keystances</code>, delegates to
+     * <code>equals(Keystances)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -281,7 +280,7 @@ abstract class Key stances implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|Key stances The current object, for fluid interface
+     * @return $this|Keystances The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -416,7 +415,7 @@ abstract class Key stances implements ActiveRecordInterface
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return $this|\Key stances The current object (for fluent API support)
+     * @return $this|\Keystances The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -426,7 +425,7 @@ abstract class Key stances implements ActiveRecordInterface
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[Key stancesTableMap::COL_ID] = true;
+            $this->modifiedColumns[KeystancesTableMap::COL_ID] = true;
         }
 
         return $this;
@@ -436,7 +435,7 @@ abstract class Key stances implements ActiveRecordInterface
      * Set the value of [healthcare] column.
      *
      * @param string $v new value
-     * @return $this|\Key stances The current object (for fluent API support)
+     * @return $this|\Keystances The current object (for fluent API support)
      */
     public function setHealthcare($v)
     {
@@ -446,7 +445,7 @@ abstract class Key stances implements ActiveRecordInterface
 
         if ($this->healthcare !== $v) {
             $this->healthcare = $v;
-            $this->modifiedColumns[Key stancesTableMap::COL_HEALTHCARE] = true;
+            $this->modifiedColumns[KeystancesTableMap::COL_HEALTHCARE] = true;
         }
 
         return $this;
@@ -456,7 +455,7 @@ abstract class Key stances implements ActiveRecordInterface
      * Set the value of [guncontrol] column.
      *
      * @param string $v new value
-     * @return $this|\Key stances The current object (for fluent API support)
+     * @return $this|\Keystances The current object (for fluent API support)
      */
     public function setGuncontrol($v)
     {
@@ -466,7 +465,7 @@ abstract class Key stances implements ActiveRecordInterface
 
         if ($this->guncontrol !== $v) {
             $this->guncontrol = $v;
-            $this->modifiedColumns[Key stancesTableMap::COL_GUNCONTROL] = true;
+            $this->modifiedColumns[KeystancesTableMap::COL_GUNCONTROL] = true;
         }
 
         return $this;
@@ -476,7 +475,7 @@ abstract class Key stances implements ActiveRecordInterface
      * Set the value of [womensrights] column.
      *
      * @param string $v new value
-     * @return $this|\Key stances The current object (for fluent API support)
+     * @return $this|\Keystances The current object (for fluent API support)
      */
     public function setWomensrights($v)
     {
@@ -486,7 +485,7 @@ abstract class Key stances implements ActiveRecordInterface
 
         if ($this->womensrights !== $v) {
             $this->womensrights = $v;
-            $this->modifiedColumns[Key stancesTableMap::COL_WOMENSRIGHTS] = true;
+            $this->modifiedColumns[KeystancesTableMap::COL_WOMENSRIGHTS] = true;
         }
 
         return $this;
@@ -496,7 +495,7 @@ abstract class Key stances implements ActiveRecordInterface
      * Set the value of [militaryspending] column.
      *
      * @param string $v new value
-     * @return $this|\Key stances The current object (for fluent API support)
+     * @return $this|\Keystances The current object (for fluent API support)
      */
     public function setMilitaryspending($v)
     {
@@ -506,7 +505,7 @@ abstract class Key stances implements ActiveRecordInterface
 
         if ($this->militaryspending !== $v) {
             $this->militaryspending = $v;
-            $this->modifiedColumns[Key stancesTableMap::COL_MILITARYSPENDING] = true;
+            $this->modifiedColumns[KeystancesTableMap::COL_MILITARYSPENDING] = true;
         }
 
         return $this;
@@ -516,7 +515,7 @@ abstract class Key stances implements ActiveRecordInterface
      * Set the value of [foreignpolicy] column.
      *
      * @param string $v new value
-     * @return $this|\Key stances The current object (for fluent API support)
+     * @return $this|\Keystances The current object (for fluent API support)
      */
     public function setForeignpolicy($v)
     {
@@ -526,7 +525,7 @@ abstract class Key stances implements ActiveRecordInterface
 
         if ($this->foreignpolicy !== $v) {
             $this->foreignpolicy = $v;
-            $this->modifiedColumns[Key stancesTableMap::COL_FOREIGNPOLICY] = true;
+            $this->modifiedColumns[KeystancesTableMap::COL_FOREIGNPOLICY] = true;
         }
 
         return $this;
@@ -536,7 +535,7 @@ abstract class Key stances implements ActiveRecordInterface
      * Set the value of [immigration] column.
      *
      * @param string $v new value
-     * @return $this|\Key stances The current object (for fluent API support)
+     * @return $this|\Keystances The current object (for fluent API support)
      */
     public function setImmigration($v)
     {
@@ -546,7 +545,7 @@ abstract class Key stances implements ActiveRecordInterface
 
         if ($this->immigration !== $v) {
             $this->immigration = $v;
-            $this->modifiedColumns[Key stancesTableMap::COL_IMMIGRATION] = true;
+            $this->modifiedColumns[KeystancesTableMap::COL_IMMIGRATION] = true;
         }
 
         return $this;
@@ -588,25 +587,25 @@ abstract class Key stances implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : Key stancesTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : KeystancesTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : Key stancesTableMap::translateFieldName('Healthcare', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : KeystancesTableMap::translateFieldName('Healthcare', TableMap::TYPE_PHPNAME, $indexType)];
             $this->healthcare = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : Key stancesTableMap::translateFieldName('Guncontrol', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : KeystancesTableMap::translateFieldName('Guncontrol', TableMap::TYPE_PHPNAME, $indexType)];
             $this->guncontrol = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : Key stancesTableMap::translateFieldName('Womensrights', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : KeystancesTableMap::translateFieldName('Womensrights', TableMap::TYPE_PHPNAME, $indexType)];
             $this->womensrights = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : Key stancesTableMap::translateFieldName('Militaryspending', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : KeystancesTableMap::translateFieldName('Militaryspending', TableMap::TYPE_PHPNAME, $indexType)];
             $this->militaryspending = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : Key stancesTableMap::translateFieldName('Foreignpolicy', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : KeystancesTableMap::translateFieldName('Foreignpolicy', TableMap::TYPE_PHPNAME, $indexType)];
             $this->foreignpolicy = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : Key stancesTableMap::translateFieldName('Immigration', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : KeystancesTableMap::translateFieldName('Immigration', TableMap::TYPE_PHPNAME, $indexType)];
             $this->immigration = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
@@ -616,10 +615,10 @@ abstract class Key stances implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 7; // 7 = Key stancesTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 7; // 7 = KeystancesTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Key stances'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Keystances'), 0, $e);
         }
     }
 
@@ -661,13 +660,13 @@ abstract class Key stances implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(Key stancesTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(KeystancesTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildKey stancesQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildKeystancesQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -686,8 +685,8 @@ abstract class Key stances implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see Key stances::setDeleted()
-     * @see Key stances::isDeleted()
+     * @see Keystances::setDeleted()
+     * @see Keystances::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -696,11 +695,11 @@ abstract class Key stances implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(Key stancesTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(KeystancesTableMap::DATABASE_NAME);
         }
 
         $con->transaction(function () use ($con) {
-            $deleteQuery = ChildKey stancesQuery::create()
+            $deleteQuery = ChildKeystancesQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -735,7 +734,7 @@ abstract class Key stances implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(Key stancesTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(KeystancesTableMap::DATABASE_NAME);
         }
 
         return $con->transaction(function () use ($con) {
@@ -754,7 +753,7 @@ abstract class Key stances implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                Key stancesTableMap::addInstanceToPool($this);
+                KeystancesTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -811,36 +810,32 @@ abstract class Key stances implements ActiveRecordInterface
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[Key stancesTableMap::COL_ID] = true;
-        if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . Key stancesTableMap::COL_ID . ')');
-        }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(Key stancesTableMap::COL_ID)) {
+        if ($this->isColumnModified(KeystancesTableMap::COL_ID)) {
             $modifiedColumns[':p' . $index++]  = 'ID';
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_HEALTHCARE)) {
+        if ($this->isColumnModified(KeystancesTableMap::COL_HEALTHCARE)) {
             $modifiedColumns[':p' . $index++]  = 'HealthCare';
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_GUNCONTROL)) {
+        if ($this->isColumnModified(KeystancesTableMap::COL_GUNCONTROL)) {
             $modifiedColumns[':p' . $index++]  = 'GunControl';
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_WOMENSRIGHTS)) {
+        if ($this->isColumnModified(KeystancesTableMap::COL_WOMENSRIGHTS)) {
             $modifiedColumns[':p' . $index++]  = 'WomensRights';
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_MILITARYSPENDING)) {
+        if ($this->isColumnModified(KeystancesTableMap::COL_MILITARYSPENDING)) {
             $modifiedColumns[':p' . $index++]  = 'MilitarySpending';
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_FOREIGNPOLICY)) {
+        if ($this->isColumnModified(KeystancesTableMap::COL_FOREIGNPOLICY)) {
             $modifiedColumns[':p' . $index++]  = 'ForeignPolicy';
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_IMMIGRATION)) {
+        if ($this->isColumnModified(KeystancesTableMap::COL_IMMIGRATION)) {
             $modifiedColumns[':p' . $index++]  = 'Immigration';
         }
 
         $sql = sprintf(
-            'INSERT INTO key stances (%s) VALUES (%s)',
+            'INSERT INTO keystances (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -878,13 +873,6 @@ abstract class Key stances implements ActiveRecordInterface
             throw new PropelException(sprintf('Unable to execute INSERT statement [%s]', $sql), 0, $e);
         }
 
-        try {
-            $pk = $con->lastInsertId();
-        } catch (Exception $e) {
-            throw new PropelException('Unable to get autoincrement id.', 0, $e);
-        }
-        $this->setId($pk);
-
         $this->setNew(false);
     }
 
@@ -916,7 +904,7 @@ abstract class Key stances implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = Key stancesTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = KeystancesTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -976,11 +964,11 @@ abstract class Key stances implements ActiveRecordInterface
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
     {
 
-        if (isset($alreadyDumpedObjects['Key stances'][$this->hashCode()])) {
+        if (isset($alreadyDumpedObjects['Keystances'][$this->hashCode()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Key stances'][$this->hashCode()] = true;
-        $keys = Key stancesTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['Keystances'][$this->hashCode()] = true;
+        $keys = KeystancesTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getHealthcare(),
@@ -1008,11 +996,11 @@ abstract class Key stances implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Key stances
+     * @return $this|\Keystances
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = Key stancesTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = KeystancesTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -1023,7 +1011,7 @@ abstract class Key stances implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Key stances
+     * @return $this|\Keystances
      */
     public function setByPosition($pos, $value)
     {
@@ -1073,7 +1061,7 @@ abstract class Key stances implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = Key stancesTableMap::getFieldNames($keyType);
+        $keys = KeystancesTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
             $this->setId($arr[$keys[0]]);
@@ -1115,7 +1103,7 @@ abstract class Key stances implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Key stances The current object, for fluid interface
+     * @return $this|\Keystances The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1135,28 +1123,28 @@ abstract class Key stances implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(Key stancesTableMap::DATABASE_NAME);
+        $criteria = new Criteria(KeystancesTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(Key stancesTableMap::COL_ID)) {
-            $criteria->add(Key stancesTableMap::COL_ID, $this->id);
+        if ($this->isColumnModified(KeystancesTableMap::COL_ID)) {
+            $criteria->add(KeystancesTableMap::COL_ID, $this->id);
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_HEALTHCARE)) {
-            $criteria->add(Key stancesTableMap::COL_HEALTHCARE, $this->healthcare);
+        if ($this->isColumnModified(KeystancesTableMap::COL_HEALTHCARE)) {
+            $criteria->add(KeystancesTableMap::COL_HEALTHCARE, $this->healthcare);
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_GUNCONTROL)) {
-            $criteria->add(Key stancesTableMap::COL_GUNCONTROL, $this->guncontrol);
+        if ($this->isColumnModified(KeystancesTableMap::COL_GUNCONTROL)) {
+            $criteria->add(KeystancesTableMap::COL_GUNCONTROL, $this->guncontrol);
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_WOMENSRIGHTS)) {
-            $criteria->add(Key stancesTableMap::COL_WOMENSRIGHTS, $this->womensrights);
+        if ($this->isColumnModified(KeystancesTableMap::COL_WOMENSRIGHTS)) {
+            $criteria->add(KeystancesTableMap::COL_WOMENSRIGHTS, $this->womensrights);
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_MILITARYSPENDING)) {
-            $criteria->add(Key stancesTableMap::COL_MILITARYSPENDING, $this->militaryspending);
+        if ($this->isColumnModified(KeystancesTableMap::COL_MILITARYSPENDING)) {
+            $criteria->add(KeystancesTableMap::COL_MILITARYSPENDING, $this->militaryspending);
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_FOREIGNPOLICY)) {
-            $criteria->add(Key stancesTableMap::COL_FOREIGNPOLICY, $this->foreignpolicy);
+        if ($this->isColumnModified(KeystancesTableMap::COL_FOREIGNPOLICY)) {
+            $criteria->add(KeystancesTableMap::COL_FOREIGNPOLICY, $this->foreignpolicy);
         }
-        if ($this->isColumnModified(Key stancesTableMap::COL_IMMIGRATION)) {
-            $criteria->add(Key stancesTableMap::COL_IMMIGRATION, $this->immigration);
+        if ($this->isColumnModified(KeystancesTableMap::COL_IMMIGRATION)) {
+            $criteria->add(KeystancesTableMap::COL_IMMIGRATION, $this->immigration);
         }
 
         return $criteria;
@@ -1174,8 +1162,7 @@ abstract class Key stances implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = ChildKey stancesQuery::create();
-        $criteria->add(Key stancesTableMap::COL_ID, $this->id);
+        throw new LogicException('The Keystances object has no primary key');
 
         return $criteria;
     }
@@ -1188,7 +1175,7 @@ abstract class Key stances implements ActiveRecordInterface
      */
     public function hashCode()
     {
-        $validPk = null !== $this->getId();
+        $validPk = false;
 
         $validPrimaryKeyFKs = 0;
         $primaryKeyFKs = [];
@@ -1203,23 +1190,27 @@ abstract class Key stances implements ActiveRecordInterface
     }
 
     /**
-     * Returns the primary key for this object (row).
-     * @return int
+     * Returns NULL since this table doesn't have a primary key.
+     * This method exists only for BC and is deprecated!
+     * @return null
      */
     public function getPrimaryKey()
     {
-        return $this->getId();
+        return null;
     }
 
     /**
-     * Generic method to set the primary key (id column).
+     * Dummy primary key setter.
      *
-     * @param       int $key Primary key.
-     * @return void
+     * This function only exists to preserve backwards compatibility.  It is no longer
+     * needed or required by the Persistent interface.  It will be removed in next BC-breaking
+     * release of Propel.
+     *
+     * @deprecated
      */
-    public function setPrimaryKey($key)
+    public function setPrimaryKey($pk)
     {
-        $this->setId($key);
+        // do nothing, because this object doesn't have any primary keys
     }
 
     /**
@@ -1228,7 +1219,7 @@ abstract class Key stances implements ActiveRecordInterface
      */
     public function isPrimaryKeyNull()
     {
-        return null === $this->getId();
+        return ;
     }
 
     /**
@@ -1237,13 +1228,14 @@ abstract class Key stances implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Key stances (or compatible) type.
+     * @param      object $copyObj An object of \Keystances (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
+        $copyObj->setId($this->getId());
         $copyObj->setHealthcare($this->getHealthcare());
         $copyObj->setGuncontrol($this->getGuncontrol());
         $copyObj->setWomensrights($this->getWomensrights());
@@ -1252,7 +1244,6 @@ abstract class Key stances implements ActiveRecordInterface
         $copyObj->setImmigration($this->getImmigration());
         if ($makeNew) {
             $copyObj->setNew(true);
-            $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
         }
     }
 
@@ -1265,7 +1256,7 @@ abstract class Key stances implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Key stances Clone of current object.
+     * @return \Keystances Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1321,7 +1312,7 @@ abstract class Key stances implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(Key stancesTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(KeystancesTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**

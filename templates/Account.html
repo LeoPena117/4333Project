@@ -15,10 +15,11 @@
       <button id="changePW" type="submit" class="btn btn-primary">Change Password</button><br></br>
       <input id="tBox" class="hidden" type="text" name="uName">
       <input id="pBox" class="hidden" type="text" name="PW">
+      <div id="usedUsername" class="alert-danger p-2 mb-2">Username already in use.</div>
       <p id="ustate">State: <state>{{User.State}}</state></p>
-      <button id="changeState" type="submit" class="btn btn-primary">Change State</button><br></br>
-      <p id="states" class="hidden">
-	      <select id="State">
+      <div class="changeState"><button type="submit" class="btn btn-primary">Change State</button><br></br></div>
+      <p>
+	      <select id="states">
 			<option value="AL">Alabama</option>
 			<option value="AK">Alaska</option>
 			<option value="AZ">Arizona</option>

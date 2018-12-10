@@ -70,6 +70,35 @@ $app->get('/{Id}', function($request, $response, $args) {
     $Ind = IndependentsQuery::create()->findOneByName($Senator->getName());
     $Dem = DemocratsQuery::create()->findOneByName($Senator->getName());
     $Bio = BiographyQuery::create()->findOneById($args['Id']);
+    $Participation = ParticipationQuery::create()->findOneById($args['Id']);
+    $Stance = KeystancesQuery::create()->findOneById($args['Id']);
+    $RE = UpforreelectionQuery::create()->findOneByName($Senator->getName());
+   
+
+
+    if(!empty($RE)){
+        $year = "2018";
+        $opponent = OpponentsQuery::create()->findOneByOpposingSenator($args['Id']);
+    }
+    else{
+        $NRE = NotUpForReelectionQuery::create()->findOneByName($Senator->getName());
+        if($NRE->getParty()=="D"){
+            $year = $Dem->getClass();
+        }
+        else if($NRE->getParty()=="R"){
+            $year = $Rep->getClass();
+        }
+        else if($NRE->getParty()=="I"){
+            $year = $Ind->getClass();
+        }
+        if($year=="Class II"){
+            $year = "2020";
+        }
+        else
+            $year="2022";
+    }
+
+
     $data=$_SESSION;
     if(!empty($Ind))
         $Party=$Ind;
@@ -82,7 +111,11 @@ $app->get('/{Id}', function($request, $response, $args) {
         "Senator" => $Senator,
         "Party"=> $Party,
         "Bio"=> $Bio,
-        "data" => $data
+        "Participation" => $Participation,
+        "Stance" => $Stance,
+        "data" => $data,
+        "Opponent" => $opponent,
+        "UFE" => $year
     ]);
 
     } else {
@@ -132,18 +165,45 @@ $app->get('/sort/Party', function($request, $response, $args) {
 })->setName('home');
 
 $app->get('/sort/State', function($request, $response, $args) {
-    $Senators = AllsenatorsQuery::create()->orderById();
+    $Senators = AllsenatorsQuery::create()->find()->toArray();
 
-    $Rep = RepublicansQuery::create()->orderById();
-    $Ind = IndependentsQuery::create()->orderById();
-    $Dem = DemocratsQuery::create()->orderById();
+    $all=array();
+    foreach($Senators as $val){
+        if($val['Party']=="D"){
+            $Dem = DemocratsQuery::create()->findOneByName($val['Name']);
+            $val['state'] = $Dem->getState();
+            array_push($all, $val);
+        }
+        if($val['Party']=="R"){
+            $Rep = RepublicansQuery::create()->findOneByName($val['Name']);
+            $val['state'] = $Rep->getState();
+            array_push($all, $val);
+        }
+        if($val['Party']=="I"){
+            $Ind = IndependentsQuery::create()->findOneByName($val['Name']);
+            $val['state'] = $Ind->getState();
+            array_push($all, $val);
+        }
+    }
     
+    foreach ($all as $key => $row) {
+        $state[$key] = $row['state'];
+    }
+
+    array_multisort($state, SORT_ASC, $all);
+    $data=$_SESSION;
+
+
+$Rep = RepublicansQuery::create()->groupByName();
+    $Ind = IndependentsQuery::create()->groupByName();
+    $Dem = DemocratsQuery::create()->groupByName();
 
     $this->view->render($response, 'List.html', [
-        "Senators" => $Senators,
+        "Senators" => $all,
         "Dem"=> $Dem,
         "Rep"=> $Rep,
-        "Ind"=> $Ind
+        "Ind"=> $Ind,
+        "data" => $data
     ]);
 
     return $response;
@@ -171,21 +231,21 @@ $app->get('/handlers/senators',function($request,$response,$args){
 $app->post('/handlers/signupconfirm', function ($request, $response, $args) {
     $User = UsersQuery::create()->findOneByUsername($request->getParam("username"));
 
-if($User==null){
-    $Usr = new Users();
-    $hash = password_hash($request->getParam("pw"),PASSWORD_DEFAULT);
-    $Usr->setUsername($request->getParam("username"));
-    $Usr->setPasswordHash($hash);
-    $Usr->setState($request->getParam("state"));
-    $Usr->save();
-    $_SESSION['loggedin'] = true;
-    $_SESSION['username'] = $Usr->getUsername();
-    $_SESSION['id'] = $Usr->getId();
-    $data=array("success"=>true);
-}
-else{
-    $data=array("success"=>false);
-}
+    if($User==null){
+        $Usr = new Users();
+        $hash = password_hash($request->getParam("pw"),PASSWORD_DEFAULT);
+        $Usr->setUsername($request->getParam("username"));
+        $Usr->setPasswordHash($hash);
+        $Usr->setState($request->getParam("state"));
+        $Usr->save();
+        $_SESSION['loggedin'] = true;
+        $_SESSION['username'] = $Usr->getUsername();
+        $_SESSION['id'] = $Usr->getId();
+        $data=array("success"=>true);
+    }
+    else{
+        $data=array("success"=>false);
+    }
 $this->view->render($response, 'signup.html');
     return $response->withJson($data);
 
@@ -221,11 +281,18 @@ $app->post('/handlers/changeState', function ($request, $response, $args) {
 });
 
 $app->post('/handlers/changeUName', function ($request, $response, $args) {
-    $User=UsersQuery::create()->findOneById($request->getParam("user"));
-    $User->setUsername($request->getParam("username"));
-    $User->save();
-    $data=$User->getUsername();
+    $TestUser = UsersQuery::create()->findOneByUsername($request->getParam("username"));
 
+    if($TestUser==null){
+        $User=UsersQuery::create()->findOneById($request->getParam("user"));
+        $User->setUsername($request->getParam("username"));
+        $User->save();
+        $data=$User->getUsername();
+        $_SESSION['username'] = $User->getUsername();
+    }
+    else{
+        $data=array("success"=>false);
+    }
     $this->view->render($response, 'Account.html');
     return $response->withJson($data);
 });
@@ -261,7 +328,7 @@ $app->post('/handlers/deleteUser', function ($request, $response, $args) {
     $User=UsersQuery::create()->findOneById($request->getParam("user"));
     $User->delete();
 
-    $data=array("success"=>true);
+    $data=array("success"=>true,"user"=>$request->getParam("user"));
 
     $this->view->render($response, 'admin.html');
     return $response->withJson($data);
@@ -275,8 +342,7 @@ $app->post('/handlers/postcomment', function ($request, $response, $args) {
             $C->setComment($request->getParam("comment"));
             $C->setSenator($request->getParam("senator"));
             $C->save();
-
-            $data = array('success' => true,'user'=> $_SESSION['username'],'comment'=>$request->getParam("comment"));
+            $data = array('success' => true,'user'=> $_SESSION['username'],'comment'=>$request->getParam("comment"),'ID'=>$C->getID());
             $this->view->render($response, 'Single.html');
             return $response->withJson($data);
         }
@@ -288,11 +354,52 @@ $app->get('/handlers/getall/{ID}', function ($request, $response, $args) {
 
     $data=array();
     for($i=0;$i<count($C);$i++){
-        array_push($data, array($C[$i]->getUser(),$C[$i]->getComment()));
+        array_push($data, array($C[$i]->getUser(),$C[$i]->getComment(),$C[$i]->getID()));
     }
     
     $this->view->render($response, 'Single.html');
     return $response->withJson($data);
+});
+$app->post('/handlers/promote', function ($request, $response, $args) {
+    $User=UsersQuery::create()->findOneById($request->getParam("user"));
+    if($User->getAdmin()!="True"){
+        $User->setAdmin("True");
+        $User->save();
+
+        $data=array("success"=>true);
+
+        $this->view->render($response, 'admin.html');
+        return $response->withJson($data);
+    }
+});
+
+$app->post('/handlers/deleteComment', function ($request, $response, $args) {
+    $C = CommentsQuery::create()->findOneByID(intval($request->getParam('comment')));
+    $C->delete();
+    $data=array("success"=>true);
+
+    $this->view->render($response, 'Single.html');
+    return $response->withJson($data);
+});
+
+$app->get('/handlers/search', function ($request, $response, $args) {
+    $Senators = AllsenatorsQuery::create()->findByName($request->getParam('senator'));
+    
+    $Rep = RepublicansQuery::create()->groupByName();
+    $Ind = IndependentsQuery::create()->groupByName();
+    $Dem = DemocratsQuery::create()->groupByName();
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+        $data=$_SESSION;
+    }
+
+    $this->view->render($response, 'List.html', [
+        "Senators" => $Senators,
+        "Dem"=> $Dem,
+        "Rep"=> $Rep,
+        "Ind"=> $Ind,
+        "data" => $data
+    ]);
+
 });
 
 $app->run();
